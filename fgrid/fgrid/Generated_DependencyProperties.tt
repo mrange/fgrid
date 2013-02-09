@@ -1,0 +1,78 @@
+using System.Collections.Generic;
+using System.Globalization;
+
+
+<#
+    // Note that the generating code contains extension points using partial methods
+
+    // The namespace the generated code is placed in
+    Namespace   = "FGrid"         ;   
+
+    Model = new []
+    {
+        new ClassDefinition ("FGridView_FilterRule")
+        {
+            P ("string"             , "ValuePath"               ),
+        },
+        new ClassDefinition ("FGridView_FilterRule_Simple")
+        {
+            P ("CultureInfo"        , "Culture"                 ),
+            P ("FilterOperator"     , "Operator"                ),
+            P ("object"             , "CompareWith"             ),
+        },
+        new ClassDefinition ("FGridView_SortRule")
+        {
+            P ("string"             , "ValuePath"               ),
+        },
+        new ClassDefinition ("FGridView_SortRule_Simple")
+        {
+            P ("CultureInfo"        , "Culture"                 ),
+            P ("bool"               , "SortDescending"          ),
+        },
+        new ClassDefinition ("FGridView_Row")
+        {
+            P ("double"             , "ActualHeight"            ),
+            P ("double"             , "MinHeight"               ),
+            P ("double"             , "MaxHeight"               ),
+            P ("GridLength"         , "Height"                  ),
+        },
+        new ClassDefinition ("FGridView_Row_Default")
+        {
+            P ("Brush"              , "Background"              ),
+        },
+        new ClassDefinition ("FGridView_Column")
+        {
+            P ("string"             , "Header"                  ),
+            P ("string"             , "ToolTipPath"             ),
+            P ("double"             , "ActualWidth"             ),
+            P ("double"             , "MinWidth"                ),
+            P ("double"             , "MaxWidth"                ),
+            P ("GridLength"         , "Width"                   ),
+        },
+        new ClassDefinition ("FGridView_Column_Text")
+        {
+            P ("string"             , "ValuePath"               ),
+        },
+        new ClassDefinition ("FGridView")
+        {
+            P ("bool"                           , "ShowHeaderRow_Top"       ),
+            P ("bool"                           , "ShowHeaderRow_Bottom"    ),
+            P ("bool"                           , "ShowSearchRow_Top"       ),
+            P ("bool"                           , "ShowSearchRow_Bottom"    ),
+
+            P ("int"                            , "MaximumRowsToRetain"     ),
+
+            P ("IEnumerable<object>"            , "Rows"                    ),
+
+            C ("FGridView_Column"               , "ColumnDefinitions"       ),
+            C ("FGridView_Row"                  , "RowDefinitions"          ),
+            C ("FGridView_FilterRule"           , "FilterRules"             ),
+            C ("FGridView_SortRule"             , "SortRules"               ),
+        },
+    };
+
+#>
+
+<#@ include file="$(SolutionDir)\packages\T4IncludeWPF.1.0.1\T4\DependencyProperties.ttinclude" #>
+
+

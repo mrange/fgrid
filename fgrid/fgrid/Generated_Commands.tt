@@ -1,0 +1,16 @@
+<#
+    // The namespace the generated code is placed in
+    Namespace   = "fgrid"         ;   
+
+    Model = new []
+    {
+        new ClassDefinition ("FGridView")
+        {
+        },
+    };
+
+#>
+
+<#@ include file="$(SolutionDir)\packages\T4IncludeWPF.1.0.1\T4\RoutedCommands.ttinclude" #>
+
+
