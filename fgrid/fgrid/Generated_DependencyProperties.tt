@@ -66,6 +66,9 @@ using System.Globalization;
         },
         new ClassDefinition ("FGridView")
         {
+            P ("Brush"                          , "Background"              ),
+            P ("Brush"                          , "Foreground"              ),
+
             P ("bool"                           , "ShowHeaderRow_Top"       ),
             P ("bool"                           , "ShowHeaderRow_Bottom"    ),
             P ("bool"                           , "ShowSearchRow_Top"       ),
@@ -76,7 +79,7 @@ using System.Globalization;
             P ("IEnumerable<object>"            , "Rows"                    ),
 
             C ("FGridView_Column"               , "ColumnDefinitions"       ),
-            C ("FGridView_Row"                  , "RowDefinitions"          ),
+            P ("FGridView_Row"                  , "RowDefinition"           ),
             C ("FGridView_FilterRule"           , "FilterRules"             ),
             C ("FGridView_SortRule"             , "SortRules"               ),
         },

@@ -1494,6 +1494,86 @@ namespace FGrid
     partial class FGridView
     {
         #region Uninteresting generated code
+        public static readonly DependencyProperty BackgroundProperty = DependencyProperty.Register (
+            "Background",
+            typeof (Brush),
+            typeof (FGridView),
+            new FrameworkPropertyMetadata (
+                default (Brush),
+                FrameworkPropertyMetadataOptions.None,
+                Changed_Background,
+                Coerce_Background          
+            ));
+
+        static void Changed_Background (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance != null)
+            {
+                var oldValue = (Brush)eventArgs.OldValue;
+                var newValue = (Brush)eventArgs.NewValue;
+
+                instance.Changed_Background (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_Background (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (Brush)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_Background (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
+        public static readonly DependencyProperty ForegroundProperty = DependencyProperty.Register (
+            "Foreground",
+            typeof (Brush),
+            typeof (FGridView),
+            new FrameworkPropertyMetadata (
+                default (Brush),
+                FrameworkPropertyMetadataOptions.None,
+                Changed_Foreground,
+                Coerce_Foreground          
+            ));
+
+        static void Changed_Foreground (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance != null)
+            {
+                var oldValue = (Brush)eventArgs.OldValue;
+                var newValue = (Brush)eventArgs.NewValue;
+
+                instance.Changed_Foreground (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_Foreground (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (Brush)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_Foreground (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
         public static readonly DependencyProperty ShowHeaderRow_TopProperty = DependencyProperty.Register (
             "ShowHeaderRow_Top",
             typeof (bool),
@@ -1799,67 +1879,42 @@ namespace FGrid
             return newValue;
         }
 
-        public static readonly DependencyProperty RowDefinitionsProperty = DependencyProperty.Register (
-            "RowDefinitions",
-            typeof (ObservableCollection<FGridView_Row>),
+        public static readonly DependencyProperty RowDefinitionProperty = DependencyProperty.Register (
+            "RowDefinition",
+            typeof (FGridView_Row),
             typeof (FGridView),
             new FrameworkPropertyMetadata (
-                null,
+                default (FGridView_Row),
                 FrameworkPropertyMetadataOptions.None,
-                Changed_RowDefinitions,
-                Coerce_RowDefinitions          
+                Changed_RowDefinition,
+                Coerce_RowDefinition          
             ));
 
-        static void Changed_RowDefinitions (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        static void Changed_RowDefinition (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
         {
             var instance = dependencyObject as FGridView;
             if (instance != null)
             {
-                var oldValue = (ObservableCollection<FGridView_Row>)eventArgs.OldValue;
-                var newValue = (ObservableCollection<FGridView_Row>)eventArgs.NewValue;
+                var oldValue = (FGridView_Row)eventArgs.OldValue;
+                var newValue = (FGridView_Row)eventArgs.NewValue;
 
-                if (oldValue != null)
-                {
-                    oldValue.CollectionChanged -= instance.CollectionChanged_RowDefinitions;
-                }
-
-                if (newValue != null)
-                {
-                    newValue.CollectionChanged += instance.CollectionChanged_RowDefinitions;
-                }
-
-                instance.Changed_RowDefinitions (oldValue, newValue);
+                instance.Changed_RowDefinition (oldValue, newValue);
             }
         }
 
-        void CollectionChanged_RowDefinitions(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            CollectionChanged_RowDefinitions (
-                sender, 
-                e.Action,
-                e.OldStartingIndex,
-                e.OldItems,
-                e.NewStartingIndex,
-                e.NewItems
-                );
-        }
 
-        static object Coerce_RowDefinitions (DependencyObject dependencyObject, object basevalue)
+        static object Coerce_RowDefinition (DependencyObject dependencyObject, object basevalue)
         {
             var instance = dependencyObject as FGridView;
             if (instance == null)
             {
                 return basevalue;
             }
-            var oldValue = (ObservableCollection<FGridView_Row>)basevalue;
+            var oldValue = (FGridView_Row)basevalue;
             var newValue = oldValue;
 
-            instance.Coerce_RowDefinitions (oldValue, ref newValue);
+            instance.Coerce_RowDefinition (oldValue, ref newValue);
 
-            if (newValue == null)
-            {
-               newValue = new ObservableCollection<FGridView_Row> ();
-            }
 
             return newValue;
         }
@@ -2009,6 +2064,8 @@ namespace FGrid
         // --------------------------------------------------------------------
         void CoerceAllProperties ()
         {
+            CoerceValue (BackgroundProperty);
+            CoerceValue (ForegroundProperty);
             CoerceValue (ShowHeaderRow_TopProperty);
             CoerceValue (ShowHeaderRow_BottomProperty);
             CoerceValue (ShowSearchRow_TopProperty);
@@ -2016,7 +2073,7 @@ namespace FGrid
             CoerceValue (MaximumRowsToRetainProperty);
             CoerceValue (RowsProperty);
             CoerceValue (ColumnDefinitionsProperty);
-            CoerceValue (RowDefinitionsProperty);
+            CoerceValue (RowDefinitionProperty);
             CoerceValue (FilterRulesProperty);
             CoerceValue (SortRulesProperty);
         }
@@ -2025,6 +2082,50 @@ namespace FGrid
         // --------------------------------------------------------------------
         // Properties
         // --------------------------------------------------------------------
+
+           
+        // --------------------------------------------------------------------
+        public Brush Background
+        {
+            get
+            {
+                return (Brush)GetValue (BackgroundProperty);
+            }
+            set
+            {
+                if (Background != value)
+                {
+                    SetValue (BackgroundProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Coerce_Background (Brush value, ref Brush coercedValue);
+        partial void Changed_Background (Brush oldValue, Brush newValue);
+        // --------------------------------------------------------------------
+
+
+           
+        // --------------------------------------------------------------------
+        public Brush Foreground
+        {
+            get
+            {
+                return (Brush)GetValue (ForegroundProperty);
+            }
+            set
+            {
+                if (Foreground != value)
+                {
+                    SetValue (ForegroundProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Coerce_Foreground (Brush value, ref Brush coercedValue);
+        partial void Changed_Foreground (Brush oldValue, Brush newValue);
+        // --------------------------------------------------------------------
+
 
            
         // --------------------------------------------------------------------
@@ -2183,24 +2284,23 @@ namespace FGrid
 
            
         // --------------------------------------------------------------------
-        public ObservableCollection<FGridView_Row> RowDefinitions
+        public FGridView_Row RowDefinition
         {
             get
             {
-                return (ObservableCollection<FGridView_Row>)GetValue (RowDefinitionsProperty);
+                return (FGridView_Row)GetValue (RowDefinitionProperty);
             }
             set
             {
-                if (RowDefinitions != value)
+                if (RowDefinition != value)
                 {
-                    SetValue (RowDefinitionsProperty, value);
+                    SetValue (RowDefinitionProperty, value);
                 }
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_RowDefinitions (ObservableCollection<FGridView_Row> value, ref ObservableCollection<FGridView_Row> coercedValue);
-        partial void Changed_RowDefinitions (ObservableCollection<FGridView_Row> oldValue, ObservableCollection<FGridView_Row> newValue);
-        partial void CollectionChanged_RowDefinitions (object sender, NotifyCollectionChangedAction action, int oldStartingIndex, IList oldItems, int newStartingIndex, IList newItems);
+        partial void Coerce_RowDefinition (FGridView_Row value, ref FGridView_Row coercedValue);
+        partial void Changed_RowDefinition (FGridView_Row oldValue, FGridView_Row newValue);
         // --------------------------------------------------------------------
 
 
