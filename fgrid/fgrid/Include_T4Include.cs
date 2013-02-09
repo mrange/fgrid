@@ -1,3 +1,15 @@
+// ----------------------------------------------------------------------------------------------
+// Copyright (c) Mårten Rånge.
+// ----------------------------------------------------------------------------------------------
+// This source code is subject to terms and conditions of the Microsoft Public License. A 
+// copy of the license can be found in the License.html file at the root of this distribution. 
+// If you cannot locate the  Microsoft Public License, please send an email to 
+// dlr@microsoft.com. By using this source code in any fashion, you are agreeing to be bound 
+//  by the terms of the Microsoft Public License.
+// ----------------------------------------------------------------------------------------------
+// You must not remove this notice, or any other, from this software.
+// ----------------------------------------------------------------------------------------------
+
 
 // ############################################################################
 // #                                                                          #
@@ -519,7 +531,7 @@ namespace fgrid.Include
     static partial class MetaData
     {
         public const string RootPath        = @"https://raw.github.com/";
-        public const string IncludeDate     = @"2013-02-09T10:08:18";
+        public const string IncludeDate     = @"2013-02-09T11:23:51";
 
         public const string Include_0       = @"mrange/T4Include/master/Extensions/BasicExtensions.cs";
         public const string Include_1       = @"https://raw.github.com/mrange/T4Include/master/Common/Array.cs";
