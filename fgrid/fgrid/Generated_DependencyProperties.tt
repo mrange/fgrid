@@ -42,14 +42,13 @@ using System.Globalization;
         },
         new ClassDefinition ("FGridView_Row")
         {
-            P ("double"             , "ActualHeight"            ),
+            P ("double"             , "NonMeasuredHeight"       ),
             P ("double"             , "MinHeight"               ),
             P ("double"             , "MaxHeight"               ),
             P ("GridLength"         , "Height"                  ),
         },
         new ClassDefinition ("FGridView_Row_Default")
         {
-            P ("Brush"              , "Background"              ),
         },
         new ClassDefinition ("FGridView_Column")
         {
@@ -73,8 +72,6 @@ using System.Globalization;
             P ("bool"                           , "ShowHeaderRow_Bottom"    ),
             P ("bool"                           , "ShowSearchRow_Top"       ),
             P ("bool"                           , "ShowSearchRow_Bottom"    ),
-
-            P ("int"                            , "MaximumRowsToRetain"     ),
 
             P ("IEnumerable<object>"            , "Rows"                    ),
 

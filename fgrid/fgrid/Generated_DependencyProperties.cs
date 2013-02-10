@@ -614,18 +614,18 @@ namespace FGrid
     partial class FGridView_Row
     {
         #region Uninteresting generated code
-        public static readonly DependencyProperty ActualHeightProperty = DependencyProperty.Register (
-            "ActualHeight",
+        public static readonly DependencyProperty NonMeasuredHeightProperty = DependencyProperty.Register (
+            "NonMeasuredHeight",
             typeof (double),
             typeof (FGridView_Row),
             new FrameworkPropertyMetadata (
                 default (double),
                 FrameworkPropertyMetadataOptions.None,
-                Changed_ActualHeight,
-                Coerce_ActualHeight          
+                Changed_NonMeasuredHeight,
+                Coerce_NonMeasuredHeight          
             ));
 
-        static void Changed_ActualHeight (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        static void Changed_NonMeasuredHeight (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
         {
             var instance = dependencyObject as FGridView_Row;
             if (instance != null)
@@ -633,12 +633,12 @@ namespace FGrid
                 var oldValue = (double)eventArgs.OldValue;
                 var newValue = (double)eventArgs.NewValue;
 
-                instance.Changed_ActualHeight (oldValue, newValue);
+                instance.Changed_NonMeasuredHeight (oldValue, newValue);
             }
         }
 
 
-        static object Coerce_ActualHeight (DependencyObject dependencyObject, object basevalue)
+        static object Coerce_NonMeasuredHeight (DependencyObject dependencyObject, object basevalue)
         {
             var instance = dependencyObject as FGridView_Row;
             if (instance == null)
@@ -648,7 +648,7 @@ namespace FGrid
             var oldValue = (double)basevalue;
             var newValue = oldValue;
 
-            instance.Coerce_ActualHeight (oldValue, ref newValue);
+            instance.Coerce_NonMeasuredHeight (oldValue, ref newValue);
 
 
             return newValue;
@@ -789,7 +789,7 @@ namespace FGrid
         // --------------------------------------------------------------------
         void CoerceAllProperties ()
         {
-            CoerceValue (ActualHeightProperty);
+            CoerceValue (NonMeasuredHeightProperty);
             CoerceValue (MinHeightProperty);
             CoerceValue (MaxHeightProperty);
             CoerceValue (HeightProperty);
@@ -802,23 +802,23 @@ namespace FGrid
 
            
         // --------------------------------------------------------------------
-        public double ActualHeight
+        public double NonMeasuredHeight
         {
             get
             {
-                return (double)GetValue (ActualHeightProperty);
+                return (double)GetValue (NonMeasuredHeightProperty);
             }
             set
             {
-                if (ActualHeight != value)
+                if (NonMeasuredHeight != value)
                 {
-                    SetValue (ActualHeightProperty, value);
+                    SetValue (NonMeasuredHeightProperty, value);
                 }
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_ActualHeight (double value, ref double coercedValue);
-        partial void Changed_ActualHeight (double oldValue, double newValue);
+        partial void Coerce_NonMeasuredHeight (double value, ref double coercedValue);
+        partial void Changed_NonMeasuredHeight (double oldValue, double newValue);
         // --------------------------------------------------------------------
 
 
@@ -897,46 +897,6 @@ namespace FGrid
     partial class FGridView_Row_Default
     {
         #region Uninteresting generated code
-        public static readonly DependencyProperty BackgroundProperty = DependencyProperty.Register (
-            "Background",
-            typeof (Brush),
-            typeof (FGridView_Row_Default),
-            new FrameworkPropertyMetadata (
-                default (Brush),
-                FrameworkPropertyMetadataOptions.None,
-                Changed_Background,
-                Coerce_Background          
-            ));
-
-        static void Changed_Background (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
-        {
-            var instance = dependencyObject as FGridView_Row_Default;
-            if (instance != null)
-            {
-                var oldValue = (Brush)eventArgs.OldValue;
-                var newValue = (Brush)eventArgs.NewValue;
-
-                instance.Changed_Background (oldValue, newValue);
-            }
-        }
-
-
-        static object Coerce_Background (DependencyObject dependencyObject, object basevalue)
-        {
-            var instance = dependencyObject as FGridView_Row_Default;
-            if (instance == null)
-            {
-                return basevalue;
-            }
-            var oldValue = (Brush)basevalue;
-            var newValue = oldValue;
-
-            instance.Coerce_Background (oldValue, ref newValue);
-
-
-            return newValue;
-        }
-
         #endregion
 
         // --------------------------------------------------------------------
@@ -952,35 +912,12 @@ namespace FGrid
         // --------------------------------------------------------------------
         void CoerceAllProperties ()
         {
-            CoerceValue (BackgroundProperty);
         }
 
 
         // --------------------------------------------------------------------
         // Properties
         // --------------------------------------------------------------------
-
-           
-        // --------------------------------------------------------------------
-        public Brush Background
-        {
-            get
-            {
-                return (Brush)GetValue (BackgroundProperty);
-            }
-            set
-            {
-                if (Background != value)
-                {
-                    SetValue (BackgroundProperty, value);
-                }
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Coerce_Background (Brush value, ref Brush coercedValue);
-        partial void Changed_Background (Brush oldValue, Brush newValue);
-        // --------------------------------------------------------------------
-
 
     }
     // ------------------------------------------------------------------------
@@ -1734,46 +1671,6 @@ namespace FGrid
             return newValue;
         }
 
-        public static readonly DependencyProperty MaximumRowsToRetainProperty = DependencyProperty.Register (
-            "MaximumRowsToRetain",
-            typeof (int),
-            typeof (FGridView),
-            new FrameworkPropertyMetadata (
-                default (int),
-                FrameworkPropertyMetadataOptions.None,
-                Changed_MaximumRowsToRetain,
-                Coerce_MaximumRowsToRetain          
-            ));
-
-        static void Changed_MaximumRowsToRetain (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
-        {
-            var instance = dependencyObject as FGridView;
-            if (instance != null)
-            {
-                var oldValue = (int)eventArgs.OldValue;
-                var newValue = (int)eventArgs.NewValue;
-
-                instance.Changed_MaximumRowsToRetain (oldValue, newValue);
-            }
-        }
-
-
-        static object Coerce_MaximumRowsToRetain (DependencyObject dependencyObject, object basevalue)
-        {
-            var instance = dependencyObject as FGridView;
-            if (instance == null)
-            {
-                return basevalue;
-            }
-            var oldValue = (int)basevalue;
-            var newValue = oldValue;
-
-            instance.Coerce_MaximumRowsToRetain (oldValue, ref newValue);
-
-
-            return newValue;
-        }
-
         public static readonly DependencyProperty RowsProperty = DependencyProperty.Register (
             "Rows",
             typeof (IEnumerable<object>),
@@ -2070,7 +1967,6 @@ namespace FGrid
             CoerceValue (ShowHeaderRow_BottomProperty);
             CoerceValue (ShowSearchRow_TopProperty);
             CoerceValue (ShowSearchRow_BottomProperty);
-            CoerceValue (MaximumRowsToRetainProperty);
             CoerceValue (RowsProperty);
             CoerceValue (ColumnDefinitionsProperty);
             CoerceValue (RowDefinitionProperty);
@@ -2212,28 +2108,6 @@ namespace FGrid
         // --------------------------------------------------------------------
         partial void Coerce_ShowSearchRow_Bottom (bool value, ref bool coercedValue);
         partial void Changed_ShowSearchRow_Bottom (bool oldValue, bool newValue);
-        // --------------------------------------------------------------------
-
-
-           
-        // --------------------------------------------------------------------
-        public int MaximumRowsToRetain
-        {
-            get
-            {
-                return (int)GetValue (MaximumRowsToRetainProperty);
-            }
-            set
-            {
-                if (MaximumRowsToRetain != value)
-                {
-                    SetValue (MaximumRowsToRetainProperty, value);
-                }
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Coerce_MaximumRowsToRetain (int value, ref int coercedValue);
-        partial void Changed_MaximumRowsToRetain (int oldValue, int newValue);
         // --------------------------------------------------------------------
 
 
