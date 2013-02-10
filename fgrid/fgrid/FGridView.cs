@@ -106,6 +106,15 @@ namespace FGrid
 
     public abstract partial class FGridView_Column : FGridView_Object
     {
+        const double Default_ContentHeight = 24.0;
+        const double Default_AdditionalHeight = 0.0;
+        const double Default_Height = Default_ContentHeight + Default_AdditionalHeight;
+
+        const double Default_ActualWidth            = 24.0;
+        const double Default_MinWidth               = 24.0;
+        const double Default_MaxWidth               = double.MaxValue;
+        static readonly GridLength Default_Width    = GridLength.Auto;     
+
         protected abstract void OnRenderRowBackground       (DrawingContext dc, Size size, object row);
         protected abstract void OnRenderRowOverlay          (DrawingContext dc, Size size, object row, bool hasFocus);
 
@@ -271,14 +280,25 @@ namespace FGrid
             if (values != null)
             {
                 var connectedToOthers = values
-                    .Where(v => v != null && v.GridView != null && !ReferenceEquals(v.GridView, this))
+                    .Where(TestConnectionToOtherGridView)
                     .ToArray()
                     ;
                 if (connectedToOthers.Length > 0)
                 {
-                    throw new InvalidOperationException("FGridView_Objects can't be reused between several FGridViews. If you wish to move them you have to detach and attach the objects");
+                    throw Exception_ObjectsCanNotBeReusedBetweenGridViews();
                 }
             }
+        }
+
+        static Exception Exception_ObjectsCanNotBeReusedBetweenGridViews()
+        {
+            return new InvalidOperationException(
+                "FGridView_Objects can't be reused between several FGridViews. If you wish to move them you have to detach and attach the objects");
+        }
+
+        bool TestConnectionToOtherGridView(FGridView_Object v)
+        {
+            return v != null && v.GridView != null && !ReferenceEquals(v.GridView, this);
         }
 
         void UpdateObjects(IEnumerable<FGridView_Object> oldValue, IEnumerable<FGridView_Object> newValue)
@@ -326,6 +346,10 @@ namespace FGrid
             }
         }
 
+        partial void Coerce_ColumnDefinitions(ObservableCollection<FGridView_Column> value, ref ObservableCollection<FGridView_Column> coercedValue)
+        {
+            coercedValue = coercedValue ?? new ObservableCollection<FGridView_Column>();
+        }
         partial void Changed_ColumnDefinitions(ObservableCollection<FGridView_Column> oldValue, ObservableCollection<FGridView_Column> newValue)
         {
             UpdateObjects(oldValue, newValue);
@@ -335,6 +359,10 @@ namespace FGrid
             UpdateObjects(action, oldStartingIndex, oldItems, newStartingIndex, newItems);
         }
 
+        partial void Coerce_FilterRules(ObservableCollection<FGridView_FilterRule> value, ref ObservableCollection<FGridView_FilterRule> coercedValue)
+        {
+            coercedValue = coercedValue ?? new ObservableCollection<FGridView_FilterRule>();
+        }
         partial void Changed_FilterRules(ObservableCollection<FGridView_FilterRule> oldValue, ObservableCollection<FGridView_FilterRule> newValue)
         {
             UpdateObjects(oldValue, newValue);
@@ -344,6 +372,10 @@ namespace FGrid
             UpdateObjects(action, oldStartingIndex, oldItems, newStartingIndex, newItems);
         }
 
+        partial void Coerce_SortRules(ObservableCollection<FGridView_SortRule> value, ref ObservableCollection<FGridView_SortRule> coercedValue)
+        {
+            coercedValue = coercedValue ?? new ObservableCollection<FGridView_SortRule>();
+        }
         partial void Changed_SortRules(ObservableCollection<FGridView_SortRule> oldValue, ObservableCollection<FGridView_SortRule> newValue)
         {
             UpdateObjects(oldValue, newValue);
@@ -352,6 +384,29 @@ namespace FGrid
         {
             UpdateObjects(action, oldStartingIndex, oldItems, newStartingIndex, newItems);
         }
+
+        partial void Coerce_RowDefinition(FGridView_Row value, ref FGridView_Row coercedValue)
+        {
+            coercedValue = coercedValue ?? new FGridView_Row_Default();
+        }
+        partial void Changed_RowDefinition(FGridView_Row oldValue, FGridView_Row newValue)
+        {
+            if (TestConnectionToOtherGridView(newValue))
+            {
+                throw Exception_ObjectsCanNotBeReusedBetweenGridViews();
+            }
+
+            if (oldValue != null)
+            {
+                oldValue.GridView = null;
+            }
+
+            if (newValue != null)
+            {
+                newValue.GridView = this;
+            }
+        }
+        
 
         protected override void OnRender(DrawingContext drawingContext)
         {

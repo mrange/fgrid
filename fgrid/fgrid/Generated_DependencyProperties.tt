@@ -42,10 +42,9 @@ using System.Globalization;
         },
         new ClassDefinition ("FGridView_Row")
         {
-            P ("double"             , "NonMeasuredHeight"       ),
-            P ("double"             , "MinHeight"               ),
-            P ("double"             , "MaxHeight"               ),
-            P ("GridLength"         , "Height"                  ),
+            P ("double"             , "ContentHeight"           , defaultValue:"Default_ContentHeight"      ),
+            P ("double"             , "AdditionalHeight"        , defaultValue:"Default_AdditionalHeight"   ),
+            P ("double"             , "Height"                  , defaultValue:"Default_Height"             , flags: PropertyFlags.IsReadOnly   ),
         },
         new ClassDefinition ("FGridView_Row_Default")
         {
@@ -54,10 +53,10 @@ using System.Globalization;
         {
             P ("string"             , "Header"                  ),
             P ("string"             , "ToolTipPath"             ),
-            P ("double"             , "ActualWidth"             ),
-            P ("double"             , "MinWidth"                ),
-            P ("double"             , "MaxWidth"                ),
-            P ("GridLength"         , "Width"                   ),
+            P ("double"             , "ActualWidth"             , defaultValue:"Default_ActualWidth", flags: PropertyFlags.IsReadOnly   ),
+            P ("double"             , "MinWidth"                , defaultValue:"Default_MinWidth"   ),
+            P ("double"             , "MaxWidth"                , defaultValue:"Default_MaxWidth"   ),
+            P ("GridLength"         , "Width"                   , defaultValue:"Default_Width"      ),
         },
         new ClassDefinition ("FGridView_Column_Text")
         {
@@ -68,9 +67,9 @@ using System.Globalization;
             P ("Brush"                          , "Background"              ),
             P ("Brush"                          , "Foreground"              ),
 
-            P ("bool"                           , "ShowHeaderRow_Top"       ),
+            P ("bool"                           , "ShowHeaderRow_Top"       , defaultValue: "true"  ),
             P ("bool"                           , "ShowHeaderRow_Bottom"    ),
-            P ("bool"                           , "ShowSearchRow_Top"       ),
+            P ("bool"                           , "ShowSearchRow_Top"       , defaultValue: "true"  ),
             P ("bool"                           , "ShowSearchRow_Bottom"    ),
 
             P ("IEnumerable<object>"            , "Rows"                    ),

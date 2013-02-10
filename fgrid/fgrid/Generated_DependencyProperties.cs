@@ -614,18 +614,18 @@ namespace FGrid
     partial class FGridView_Row
     {
         #region Uninteresting generated code
-        public static readonly DependencyProperty NonMeasuredHeightProperty = DependencyProperty.Register (
-            "NonMeasuredHeight",
+        public static readonly DependencyProperty ContentHeightProperty = DependencyProperty.Register (
+            "ContentHeight",
             typeof (double),
             typeof (FGridView_Row),
             new FrameworkPropertyMetadata (
-                default (double),
+                Default_ContentHeight,
                 FrameworkPropertyMetadataOptions.None,
-                Changed_NonMeasuredHeight,
-                Coerce_NonMeasuredHeight          
+                Changed_ContentHeight,
+                Coerce_ContentHeight          
             ));
 
-        static void Changed_NonMeasuredHeight (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        static void Changed_ContentHeight (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
         {
             var instance = dependencyObject as FGridView_Row;
             if (instance != null)
@@ -633,12 +633,12 @@ namespace FGrid
                 var oldValue = (double)eventArgs.OldValue;
                 var newValue = (double)eventArgs.NewValue;
 
-                instance.Changed_NonMeasuredHeight (oldValue, newValue);
+                instance.Changed_ContentHeight (oldValue, newValue);
             }
         }
 
 
-        static object Coerce_NonMeasuredHeight (DependencyObject dependencyObject, object basevalue)
+        static object Coerce_ContentHeight (DependencyObject dependencyObject, object basevalue)
         {
             var instance = dependencyObject as FGridView_Row;
             if (instance == null)
@@ -648,24 +648,24 @@ namespace FGrid
             var oldValue = (double)basevalue;
             var newValue = oldValue;
 
-            instance.Coerce_NonMeasuredHeight (oldValue, ref newValue);
+            instance.Coerce_ContentHeight (oldValue, ref newValue);
 
 
             return newValue;
         }
 
-        public static readonly DependencyProperty MinHeightProperty = DependencyProperty.Register (
-            "MinHeight",
+        public static readonly DependencyProperty AdditionalHeightProperty = DependencyProperty.Register (
+            "AdditionalHeight",
             typeof (double),
             typeof (FGridView_Row),
             new FrameworkPropertyMetadata (
-                default (double),
+                Default_AdditionalHeight,
                 FrameworkPropertyMetadataOptions.None,
-                Changed_MinHeight,
-                Coerce_MinHeight          
+                Changed_AdditionalHeight,
+                Coerce_AdditionalHeight          
             ));
 
-        static void Changed_MinHeight (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        static void Changed_AdditionalHeight (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
         {
             var instance = dependencyObject as FGridView_Row;
             if (instance != null)
@@ -673,12 +673,12 @@ namespace FGrid
                 var oldValue = (double)eventArgs.OldValue;
                 var newValue = (double)eventArgs.NewValue;
 
-                instance.Changed_MinHeight (oldValue, newValue);
+                instance.Changed_AdditionalHeight (oldValue, newValue);
             }
         }
 
 
-        static object Coerce_MinHeight (DependencyObject dependencyObject, object basevalue)
+        static object Coerce_AdditionalHeight (DependencyObject dependencyObject, object basevalue)
         {
             var instance = dependencyObject as FGridView_Row;
             if (instance == null)
@@ -688,70 +688,32 @@ namespace FGrid
             var oldValue = (double)basevalue;
             var newValue = oldValue;
 
-            instance.Coerce_MinHeight (oldValue, ref newValue);
+            instance.Coerce_AdditionalHeight (oldValue, ref newValue);
 
 
             return newValue;
         }
 
-        public static readonly DependencyProperty MaxHeightProperty = DependencyProperty.Register (
-            "MaxHeight",
-            typeof (double),
-            typeof (FGridView_Row),
-            new FrameworkPropertyMetadata (
-                default (double),
-                FrameworkPropertyMetadataOptions.None,
-                Changed_MaxHeight,
-                Coerce_MaxHeight          
-            ));
-
-        static void Changed_MaxHeight (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
-        {
-            var instance = dependencyObject as FGridView_Row;
-            if (instance != null)
-            {
-                var oldValue = (double)eventArgs.OldValue;
-                var newValue = (double)eventArgs.NewValue;
-
-                instance.Changed_MaxHeight (oldValue, newValue);
-            }
-        }
-
-
-        static object Coerce_MaxHeight (DependencyObject dependencyObject, object basevalue)
-        {
-            var instance = dependencyObject as FGridView_Row;
-            if (instance == null)
-            {
-                return basevalue;
-            }
-            var oldValue = (double)basevalue;
-            var newValue = oldValue;
-
-            instance.Coerce_MaxHeight (oldValue, ref newValue);
-
-
-            return newValue;
-        }
-
-        public static readonly DependencyProperty HeightProperty = DependencyProperty.Register (
+        static readonly DependencyPropertyKey HeightPropertyKey = DependencyProperty.RegisterReadOnly (
             "Height",
-            typeof (GridLength),
+            typeof (double),
             typeof (FGridView_Row),
             new FrameworkPropertyMetadata (
-                default (GridLength),
+                Default_Height,
                 FrameworkPropertyMetadataOptions.None,
                 Changed_Height,
                 Coerce_Height          
             ));
+
+        public static readonly DependencyProperty HeightProperty = HeightPropertyKey.DependencyProperty;
 
         static void Changed_Height (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
         {
             var instance = dependencyObject as FGridView_Row;
             if (instance != null)
             {
-                var oldValue = (GridLength)eventArgs.OldValue;
-                var newValue = (GridLength)eventArgs.NewValue;
+                var oldValue = (double)eventArgs.OldValue;
+                var newValue = (double)eventArgs.NewValue;
 
                 instance.Changed_Height (oldValue, newValue);
             }
@@ -765,7 +727,7 @@ namespace FGrid
             {
                 return basevalue;
             }
-            var oldValue = (GridLength)basevalue;
+            var oldValue = (double)basevalue;
             var newValue = oldValue;
 
             instance.Coerce_Height (oldValue, ref newValue);
@@ -789,9 +751,8 @@ namespace FGrid
         // --------------------------------------------------------------------
         void CoerceAllProperties ()
         {
-            CoerceValue (NonMeasuredHeightProperty);
-            CoerceValue (MinHeightProperty);
-            CoerceValue (MaxHeightProperty);
+            CoerceValue (ContentHeightProperty);
+            CoerceValue (AdditionalHeightProperty);
             CoerceValue (HeightProperty);
         }
 
@@ -802,89 +763,67 @@ namespace FGrid
 
            
         // --------------------------------------------------------------------
-        public double NonMeasuredHeight
+        public double ContentHeight
         {
             get
             {
-                return (double)GetValue (NonMeasuredHeightProperty);
+                return (double)GetValue (ContentHeightProperty);
             }
             set
             {
-                if (NonMeasuredHeight != value)
+                if (ContentHeight != value)
                 {
-                    SetValue (NonMeasuredHeightProperty, value);
+                    SetValue (ContentHeightProperty, value);
                 }
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_NonMeasuredHeight (double value, ref double coercedValue);
-        partial void Changed_NonMeasuredHeight (double oldValue, double newValue);
+        partial void Coerce_ContentHeight (double value, ref double coercedValue);
+        partial void Changed_ContentHeight (double oldValue, double newValue);
         // --------------------------------------------------------------------
 
 
            
         // --------------------------------------------------------------------
-        public double MinHeight
+        public double AdditionalHeight
         {
             get
             {
-                return (double)GetValue (MinHeightProperty);
+                return (double)GetValue (AdditionalHeightProperty);
             }
             set
             {
-                if (MinHeight != value)
+                if (AdditionalHeight != value)
                 {
-                    SetValue (MinHeightProperty, value);
+                    SetValue (AdditionalHeightProperty, value);
                 }
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_MinHeight (double value, ref double coercedValue);
-        partial void Changed_MinHeight (double oldValue, double newValue);
+        partial void Coerce_AdditionalHeight (double value, ref double coercedValue);
+        partial void Changed_AdditionalHeight (double oldValue, double newValue);
         // --------------------------------------------------------------------
 
 
            
         // --------------------------------------------------------------------
-        public double MaxHeight
+        public double Height
         {
             get
             {
-                return (double)GetValue (MaxHeightProperty);
+                return (double)GetValue (HeightProperty);
             }
-            set
-            {
-                if (MaxHeight != value)
-                {
-                    SetValue (MaxHeightProperty, value);
-                }
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Coerce_MaxHeight (double value, ref double coercedValue);
-        partial void Changed_MaxHeight (double oldValue, double newValue);
-        // --------------------------------------------------------------------
-
-
-           
-        // --------------------------------------------------------------------
-        public GridLength Height
-        {
-            get
-            {
-                return (GridLength)GetValue (HeightProperty);
-            }
-            set
+            private set
             {
                 if (Height != value)
                 {
-                    SetValue (HeightProperty, value);
+                    SetValue (HeightPropertyKey, value);
                 }
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_Height (GridLength value, ref GridLength coercedValue);
-        partial void Changed_Height (GridLength oldValue, GridLength newValue);
+        partial void Coerce_Height (double value, ref double coercedValue);
+        partial void Changed_Height (double oldValue, double newValue);
         // --------------------------------------------------------------------
 
 
@@ -1008,16 +947,18 @@ namespace FGrid
             return newValue;
         }
 
-        public static readonly DependencyProperty ActualWidthProperty = DependencyProperty.Register (
+        static readonly DependencyPropertyKey ActualWidthPropertyKey = DependencyProperty.RegisterReadOnly (
             "ActualWidth",
             typeof (double),
             typeof (FGridView_Column),
             new FrameworkPropertyMetadata (
-                default (double),
+                Default_ActualWidth,
                 FrameworkPropertyMetadataOptions.None,
                 Changed_ActualWidth,
                 Coerce_ActualWidth          
             ));
+
+        public static readonly DependencyProperty ActualWidthProperty = ActualWidthPropertyKey.DependencyProperty;
 
         static void Changed_ActualWidth (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
         {
@@ -1053,7 +994,7 @@ namespace FGrid
             typeof (double),
             typeof (FGridView_Column),
             new FrameworkPropertyMetadata (
-                default (double),
+                Default_MinWidth,
                 FrameworkPropertyMetadataOptions.None,
                 Changed_MinWidth,
                 Coerce_MinWidth          
@@ -1093,7 +1034,7 @@ namespace FGrid
             typeof (double),
             typeof (FGridView_Column),
             new FrameworkPropertyMetadata (
-                default (double),
+                Default_MaxWidth,
                 FrameworkPropertyMetadataOptions.None,
                 Changed_MaxWidth,
                 Coerce_MaxWidth          
@@ -1133,7 +1074,7 @@ namespace FGrid
             typeof (GridLength),
             typeof (FGridView_Column),
             new FrameworkPropertyMetadata (
-                default (GridLength),
+                Default_Width,
                 FrameworkPropertyMetadataOptions.None,
                 Changed_Width,
                 Coerce_Width          
@@ -1248,11 +1189,11 @@ namespace FGrid
             {
                 return (double)GetValue (ActualWidthProperty);
             }
-            set
+            private set
             {
                 if (ActualWidth != value)
                 {
-                    SetValue (ActualWidthProperty, value);
+                    SetValue (ActualWidthPropertyKey, value);
                 }
             }
         }
@@ -1516,7 +1457,7 @@ namespace FGrid
             typeof (bool),
             typeof (FGridView),
             new FrameworkPropertyMetadata (
-                default (bool),
+                true,
                 FrameworkPropertyMetadataOptions.None,
                 Changed_ShowHeaderRow_Top,
                 Coerce_ShowHeaderRow_Top          
@@ -1596,7 +1537,7 @@ namespace FGrid
             typeof (bool),
             typeof (FGridView),
             new FrameworkPropertyMetadata (
-                default (bool),
+                true,
                 FrameworkPropertyMetadataOptions.None,
                 Changed_ShowSearchRow_Top,
                 Coerce_ShowSearchRow_Top          
