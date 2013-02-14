@@ -12,9 +12,23 @@
 
 // ReSharper disable InconsistentNaming
 
-// TODO: 
+// ----------------------------===>> G O A L S <<===----------------------------
+// 0. Good default behavior, possible to override
+// 1. Fast loading times
+// 2. Fast rendering times
+// 2.1. Chose simpler layout schemes for good performance
+// 2.2. Cache rendering result to avoid rerendering
+// 3. Includable
+// 3.1. No ResX or XAML files
+// 4. Small size
+// 5. No paging
+// ----------------------------===>> G O A L S <<===----------------------------
+
+
+// ----------------------------===>> T O D O S <<===----------------------------
 //  1. Measure:
 //      Include previous measurement/availablesize/value to allow measurement to reuse previous measurement?
+// ----------------------------===>> T O D O S <<===----------------------------
 
 using System;
 using System.Collections;
@@ -86,17 +100,15 @@ namespace FGrid
 
     public abstract partial class FGridView_Row : FGridView_Object
     {
-        protected abstract void OnRenderRowBackground       (DrawingContext dc, Size size, object row);        
+        const double Default_ContentHeight      = 24.0;
+        const double Default_AdditionalHeight   = 0.0;
+        const double Default_Height             = Default_ContentHeight + Default_AdditionalHeight;
+
+        protected abstract void OnRenderRowBackground(DrawingContext dc, Size size, object row);        
         protected abstract void OnRenderRowOverlay          (DrawingContext dc, Size size, object row, bool isSelected);        
 
         protected abstract void OnRenderHeaderBackground    (DrawingContext dc, Size size);        
         protected abstract void OnRenderHeaderOverlay       (DrawingContext dc, Size size);        
-
-        protected abstract Size     MeasureRowQuick         (Size contentSize, object row);
-        protected abstract Size     MeasureRowExact         (Size contentSize, object row);
-
-        protected abstract Size     MeasureHeaderQuick      (Size contentSize);
-        protected abstract Size     MeasureHeaderExact      (Size contentSize);
     }
 
     public partial class FGridView_Row_Default : FGridView_Row
@@ -106,13 +118,10 @@ namespace FGrid
 
     public abstract partial class FGridView_Column : FGridView_Object
     {
-        const double Default_ContentHeight = 24.0;
-        const double Default_AdditionalHeight = 0.0;
-        const double Default_Height = Default_ContentHeight + Default_AdditionalHeight;
-
         const double Default_ActualWidth            = 24.0;
         const double Default_MinWidth               = 24.0;
         const double Default_MaxWidth               = double.MaxValue;
+
         static readonly GridLength Default_Width    = GridLength.Auto;     
 
         protected abstract void OnRenderRowBackground       (DrawingContext dc, Size size, object row);
@@ -123,11 +132,11 @@ namespace FGrid
 
         protected abstract FGridView_Object OnCreateEditControl (object row);
 
-        protected abstract Size     MeasureRowQuick    (object row);
-        protected abstract Size     MeasureRowExact    (object row);
+        protected abstract double   MeasureRowQuick    (object row);
+        protected abstract double   MeasureRowExact    (object row);
 
-        protected abstract Size     MeasureHeaderQuick  ();
-        protected abstract Size     MeasureHeaderExact  ();
+        protected abstract double   MeasureHeaderQuick  ();
+        protected abstract double   MeasureHeaderExact  ();
     }
 
     public partial class FGridView_Column_Text : FGridView_Column
@@ -138,27 +147,36 @@ namespace FGrid
     {
         sealed class GridRows
         {
+            public int RowOffset;
+            public double RowHeight;
+
             public ContentGridRow[] AvailableRows;
 
-            public void Render (DrawingContext drawingContext, Vector offset, Size renderSize)
+            public void Render (
+                DrawingContext drawingContext, 
+                Vector offset, 
+                Size renderSize
+                )
             {
                 if (renderSize.AreaOf() <= 0)
                 {
                     return;
                 }
 
-                var startingRow = FindFirstVisibleRow(offset);
-                if (startingRow == null)
-                {
-                    return;
-                }
+                var startingRow = (int)Math.Floor(offset.Y / RowHeight - RowOffset);
+                var adjustedStartingRow = Math.Max(startingRow, 0);
 
-                var end         = offset + renderSize.ToVector();
+                var localOffset = offset - new Vector(adjustedStartingRow*RowHeight, 0);
+                var localEnd    = renderSize.ToVector();
+
+                var visibleRows = (int)Math.Ceiling(localEnd.Y - localOffset.Y)/RowHeight);
+                var rows        = Math.Min(visibleRows, AvailableRows.Length);
+
                 var transform   = new TranslateTransform();
 
                 for (
-                        var currentRowIndex = startingRow.Value
-                    ;       currentRowIndex < AvailableRows.Length
+                        var currentRowIndex = adjustedStartingRow
+                    ;       currentRowIndex < rows
                     ;   ++currentRowIndex
                 )
                 {
@@ -168,13 +186,8 @@ namespace FGrid
                         continue;
                     }
 
-                    if (currentRow.OffsetY > end.Y)
-                    {
-                        break;
-                    }
-
-                    transform.X = -offset.X;
-                    transform.Y = -(offset.Y + currentRow.OffsetY);
+                    transform.X = localOffset.X;
+                    transform.Y = localOffset.Y;
 
                     drawingContext.PushTransform(transform);
 
@@ -182,30 +195,14 @@ namespace FGrid
 
                     drawingContext.Pop();
 
-                }
-            }
+                    localOffset.Y = localOffset.Y + RowHeight;
 
-            int? FindFirstVisibleRow(Vector offset)
-            {
-                // TODO: Replace with binary search?
-                var availableRows = AvailableRows ?? new GridRow[0];
-                for (int index = 0; index < availableRows.Length; index++)
-                {
-                    var row = availableRows[index];
-                    if (row.OffsetY > offset.Y)
-                    {
-                        return Math.Max(index - 1, 0);
-                    }
                 }
-
-                return null;
             }
         }
 
-
         abstract class GridRow
         {
-            public double   OffsetY     ;
             public Size     MeasuredSize; 
 
             Drawing         BackGround  ;
