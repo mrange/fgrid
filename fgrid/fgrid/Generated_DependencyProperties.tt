@@ -29,7 +29,7 @@ using System.Globalization;
         {
             P ("CultureInfo"        , "Culture"                 ),
             P ("FilterOperator"     , "Operator"                ),
-            P ("object"             , "CompareWith"             ),
+            P ("object"             , "Comparand"               ),
         },
         new ClassDefinition ("FGridView_SortRule")
         {

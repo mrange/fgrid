@@ -22,24 +22,40 @@
 // 3.1. No ResX or XAML files
 // 4. Small size
 // 5. No paging
+// 6. Filters are applied on demand not continously
+// 6.1. Performance
+// 6.2. Continous applies are confusing (rows are disappearing/appearing for "no" reason)
+// 7. No automatic column resizing (but automatic column sizing)
+// 7.1. Performance
+// 7.2. Also confusing when columns are resized on scroll
+// 8. Support custom new row operations
+// 8.1. Existing grids often doesn't allow new row to be precisely controlled
 // ----------------------------===>> G O A L S <<===----------------------------
 
 
 // ----------------------------===>> T O D O S <<===----------------------------
 //  1. Measure:
 //      Include previous measurement/availablesize/value to allow measurement to reuse previous measurement?
+//  2. Once done remove Include dependency
+//  3. ValuePath should support paths IE not just members
 // ----------------------------===>> T O D O S <<===----------------------------
+
+#define FGRID__DYNAMIC_IS_SUPPORTED
 
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 using FGrid.Internal;
+using FGrid.Source.Extensions;
+using Microsoft.CSharp.RuntimeBinder;
 
 namespace FGrid
 {
@@ -85,7 +101,26 @@ namespace FGrid
 
     public partial class FGridView_FilterRule_Simple : FGridView_FilterRule
     {
+        protected override bool TestAccordingToRule(object row)
+        {
+#if FGRID__DYNAMIC_IS_SUPPORTED
+            // TODO: Cache
+            dynamic comparand   = Comparand;
+            dynamic value       = row.GetMemberValue(ValuePath);
 
+            switch (Operator)
+            {
+                case FilterOperator.EqualTo:
+                    return value == comparand;
+                case FilterOperator.NotEqualTo:
+                    return value != comparand;
+                default:
+                    return false;
+            }
+#else
+            return NOT_IMPLEMENTED_YET;
+#endif
+        }
     }
 
     public abstract partial class FGridView_SortRule : FGridView_Object
@@ -93,9 +128,28 @@ namespace FGrid
         protected abstract int CompareAccordingToRole (object leftRow, object rightRow);
     }
 
-    public partial class FGridView_SortRule_Simple : FGridView_FilterRule
+    public partial class FGridView_SortRule_Simple : FGridView_SortRule
     {
+        protected override int CompareAccordingToRole(object leftRow, object rightRow)
+        {
+#if FGRID__DYNAMIC_IS_SUPPORTED
+            // TODO: Cache
+            dynamic left    = leftRow.GetMemberValue(ValuePath);
+            dynamic right   = rightRow.GetMemberValue(ValuePath);
 
+            if (SortDescending)
+            {
+                return right < left;
+            }
+            else
+            {
+                return left < right;
+            }
+
+#else
+            return NOT_IMPLEMENTED_YET;
+#endif
+        }
     }
 
     public abstract partial class FGridView_Row : FGridView_Object
@@ -104,7 +158,7 @@ namespace FGrid
         const double Default_AdditionalHeight   = 0.0;
         const double Default_Height             = Default_ContentHeight + Default_AdditionalHeight;
 
-        protected abstract void OnRenderRowBackground(DrawingContext dc, Size size, object row);        
+        protected abstract void OnRenderRowBackground       (DrawingContext dc, Size size, object row);        
         protected abstract void OnRenderRowOverlay          (DrawingContext dc, Size size, object row, bool isSelected);        
 
         protected abstract void OnRenderHeaderBackground    (DrawingContext dc, Size size);        
@@ -113,7 +167,29 @@ namespace FGrid
 
     public partial class FGridView_Row_Default : FGridView_Row
     {
+        protected override void OnRenderRowBackground(DrawingContext dc, Size size, object row)
+        {
+            dc.DrawRectangle(Brushes.White, null, size.ToRect());
+        }
 
+        protected override void OnRenderRowOverlay(DrawingContext dc, Size size, object row, bool isSelected)
+        {
+            if (isSelected)
+            {
+                dc.PushOpacity(0.25);
+                dc.DrawRectangle(Brushes.Blue, null, size.ToRect());
+                dc.Pop();
+            }
+        }
+
+        protected override void OnRenderHeaderBackground(DrawingContext dc, Size size)
+        {
+            dc.DrawRectangle(Brushes.LightGray, null, size.ToRect());
+        }
+
+        protected override void OnRenderHeaderOverlay(DrawingContext dc, Size size)
+        {
+        }
     }
 
     public abstract partial class FGridView_Column : FGridView_Object
@@ -122,7 +198,12 @@ namespace FGrid
         const double Default_MinWidth               = 24.0;
         const double Default_MaxWidth               = double.MaxValue;
 
-        static readonly GridLength Default_Width    = GridLength.Auto;     
+        static readonly GridLength Default_Width    = GridLength.Auto;
+
+        partial void Coerce_Header(string value, ref string coercedValue)
+        {
+            coercedValue = value ?? "";
+        }
 
         protected abstract void OnRenderRowBackground       (DrawingContext dc, Size size, object row);
         protected abstract void OnRenderRowOverlay          (DrawingContext dc, Size size, object row, bool hasFocus);
@@ -132,15 +213,72 @@ namespace FGrid
 
         protected abstract FGridView_Object OnCreateEditControl (object row);
 
-        protected abstract double   MeasureRowQuick    (object row);
-        protected abstract double   MeasureRowExact    (object row);
+        protected abstract double   OnMeasureRowQuick   (object row);
+        protected abstract double   OnMeasureRowExact   (object row);
 
-        protected abstract double   MeasureHeaderQuick  ();
-        protected abstract double   MeasureHeaderExact  ();
+        protected abstract double   OnMeasureHeaderQuick();
+        protected abstract double   OnMeasureHeaderExact();
+
+        protected abstract void     OnApplySort         (bool? sortDescending);
+        protected abstract void     OnPresentFilterPopup();
     }
 
     public partial class FGridView_Column_Text : FGridView_Column
     {
+        protected override void OnRenderRowBackground(DrawingContext dc, Size size, object row)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void OnRenderRowOverlay(DrawingContext dc, Size size, object row, bool hasFocus)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void OnRenderHeaderBackground(DrawingContext dc, Size size)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void OnRenderHeaderOverlay(DrawingContext dc, Size size)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override FGridView_Object OnCreateEditControl(object row)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override double OnMeasureRowQuick(object row)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override double OnMeasureRowExact(object row)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override double OnMeasureHeaderQuick()
+        {
+            return Header.Length;
+        }
+
+        protected override double OnMeasureHeaderExact()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void OnApplySort(bool? sortDescending)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void OnPresentFilterPopup()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public partial class FGridView : FrameworkElement
@@ -169,7 +307,7 @@ namespace FGrid
                 var localOffset = offset - new Vector(adjustedStartingRow*RowHeight, 0);
                 var localEnd    = renderSize.ToVector();
 
-                var visibleRows = (int)Math.Ceiling(localEnd.Y - localOffset.Y)/RowHeight);
+                var visibleRows = (int)Math.Ceiling((localEnd.Y - localOffset.Y)/RowHeight);
                 var rows        = Math.Min(visibleRows, AvailableRows.Length);
 
                 var transform   = new TranslateTransform();
@@ -203,10 +341,8 @@ namespace FGrid
 
         abstract class GridRow
         {
-            public Size     MeasuredSize; 
-
-            Drawing         BackGround  ;
-            Drawing         Overlay     ;
+            public Drawing         BackGround   ;
+            public Drawing         Overlay      ;
 
             public void Render (DrawingContext drawingContext)
             {
@@ -417,16 +553,18 @@ namespace FGrid
 
             var translateContent = new TranslateTransform();
 
+            var rowHeight = RowDefinition.Height;
+
             if (m_headerRow != null)
             {
                 if (showHeaderRowTop)
                 {
-                    contentSize.Height -= m_headerRow.MeasuredSize.Height;
-                    translateContent.Y = m_headerRow.MeasuredSize.Height;
+                    contentSize.Height -= rowHeight;
+                    translateContent.Y = rowHeight;
                 }
                 if (showHeaderRowBottom)
                 {
-                    contentSize.Height -= m_headerRow.MeasuredSize.Height;
+                    contentSize.Height -= rowHeight;
                 }
             }
 
@@ -446,7 +584,7 @@ namespace FGrid
                     var translateBottomHeader =
                         new TranslateTransform
                             {
-                                Y = renderSize.Height - m_headerRow.MeasuredSize.Height,
+                                Y = renderSize.Height - rowHeight,
                             };
                     drawingContext.PushTransform(translateBottomHeader);
 
@@ -466,6 +604,80 @@ namespace FGrid
         public void Invalidate()
         {
             InvalidateVisual();
+        }
+    }
+}
+namespace FGrid.Internal
+{
+    static class FGridExtensions
+    {
+        public static double AreaOf(this Size size)
+        {
+            return size.Height * size.Width;
+        }
+
+        public static Vector ToVector(this Size size)
+        {
+            return new Vector(size.Width, size.Height);
+        }
+
+        public static Vector ToVector(this Point point)
+        {
+            return new Vector(point.X, point.Y);
+        }
+
+        public static Rect ToRect(this Size size)
+        {
+            return new Rect(size);
+        }
+
+#if FGRID__DYNAMIC_IS_SUPPORTED
+        static readonly ConcurrentDictionary<string,CallSite<Func<CallSite, object, object>>> s_getMember = new ConcurrentDictionary<string, CallSite<Func<CallSite, object, object>>>(); 
+#endif
+        public static object GetMemberValue(this object instance, string memberName, object defaultValue = null)
+        {
+            if (instance == null)
+            {
+                return defaultValue;
+            }
+
+            if (memberName.IsNullOrEmpty())
+            {
+                return defaultValue;
+            }
+
+#if FGRID__DYNAMIC_IS_SUPPORTED
+            CallSite<Func<CallSite, object, object>> callSite;
+
+            // Avoiding GetOrAdd as it will be only be on first round we get cache misses
+            // The next rounds we won't. GetOrAdd adds the overhead of creating 
+            // closures. While cheap it's an unnecessary cost
+
+            if (!s_getMember.TryGetValue(memberName, out callSite))
+            {
+                // This is what dynamic keyword uses under the hood
+                // Let's leverage that
+                callSite = CallSite<Func<CallSite, object, object>>.Create(
+                    Binder.GetMember(
+                        CSharpBinderFlags.None,
+                        memberName,
+                        typeof(FGridExtensions),
+                        new[]
+                        {
+                            CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null)
+                        }));
+
+                // Ignore the result, don't care if we get duplicates
+                s_getMember.TryAdd(memberName, callSite);
+            }
+
+            var value = callSite.Target(callSite, instance);
+
+            return value;
+
+#else
+            return NOT_IMPLEMENTED_YET;
+#endif
         }
     }
 }

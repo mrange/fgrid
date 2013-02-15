@@ -223,18 +223,18 @@ namespace FGrid
             return newValue;
         }
 
-        public static readonly DependencyProperty CompareWithProperty = DependencyProperty.Register (
-            "CompareWith",
+        public static readonly DependencyProperty ComparandProperty = DependencyProperty.Register (
+            "Comparand",
             typeof (object),
             typeof (FGridView_FilterRule_Simple),
             new FrameworkPropertyMetadata (
                 default (object),
                 FrameworkPropertyMetadataOptions.None,
-                Changed_CompareWith,
-                Coerce_CompareWith          
+                Changed_Comparand,
+                Coerce_Comparand          
             ));
 
-        static void Changed_CompareWith (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        static void Changed_Comparand (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
         {
             var instance = dependencyObject as FGridView_FilterRule_Simple;
             if (instance != null)
@@ -242,12 +242,12 @@ namespace FGrid
                 var oldValue = (object)eventArgs.OldValue;
                 var newValue = (object)eventArgs.NewValue;
 
-                instance.Changed_CompareWith (oldValue, newValue);
+                instance.Changed_Comparand (oldValue, newValue);
             }
         }
 
 
-        static object Coerce_CompareWith (DependencyObject dependencyObject, object basevalue)
+        static object Coerce_Comparand (DependencyObject dependencyObject, object basevalue)
         {
             var instance = dependencyObject as FGridView_FilterRule_Simple;
             if (instance == null)
@@ -257,7 +257,7 @@ namespace FGrid
             var oldValue = (object)basevalue;
             var newValue = oldValue;
 
-            instance.Coerce_CompareWith (oldValue, ref newValue);
+            instance.Coerce_Comparand (oldValue, ref newValue);
 
 
             return newValue;
@@ -280,7 +280,7 @@ namespace FGrid
         {
             CoerceValue (CultureProperty);
             CoerceValue (OperatorProperty);
-            CoerceValue (CompareWithProperty);
+            CoerceValue (ComparandProperty);
         }
 
 
@@ -334,23 +334,23 @@ namespace FGrid
 
            
         // --------------------------------------------------------------------
-        public object CompareWith
+        public object Comparand
         {
             get
             {
-                return (object)GetValue (CompareWithProperty);
+                return (object)GetValue (ComparandProperty);
             }
             set
             {
-                if (CompareWith != value)
+                if (Comparand != value)
                 {
-                    SetValue (CompareWithProperty, value);
+                    SetValue (ComparandProperty, value);
                 }
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_CompareWith (object value, ref object coercedValue);
-        partial void Changed_CompareWith (object oldValue, object newValue);
+        partial void Coerce_Comparand (object value, ref object coercedValue);
+        partial void Changed_Comparand (object oldValue, object newValue);
         // --------------------------------------------------------------------
 
 
