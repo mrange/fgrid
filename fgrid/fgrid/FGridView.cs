@@ -11,6 +11,11 @@
 // ----------------------------------------------------------------------------------------------
 
 // ReSharper disable InconsistentNaming
+// ReSharper disable ParameterTypeCanBeEnumerable.Local
+// ReSharper disable PartialTypeWithSinglePart
+// ReSharper disable RedundantAssignment
+// ReSharper disable RedundantEmptyDefaultSwitchBranch
+// ReSharper disable UnusedParameter.Local
 
 // ----------------------------===>> G O A L S <<===----------------------------
 // 0. Good default behavior, possible to override
@@ -55,7 +60,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using FGrid.Internal;
 using FGrid.Source.Extensions;
@@ -141,14 +145,7 @@ namespace FGrid
             dynamic left    = leftRow.GetMemberValue(ValuePath);
             dynamic right   = rightRow.GetMemberValue(ValuePath);
 
-            if (SortDescending)
-            {
-                return right < left;
-            }
-            else
-            {
-                return left < right;
-            }
+            return SortDescending ? right < left : left < right;
 
 #else
             return NOT_IMPLEMENTED_YET;
@@ -309,7 +306,7 @@ namespace FGrid
 
     public partial class FGridView : FrameworkElement
     {
-        sealed class GridRows
+        sealed partial class GridRows
         {
             public int RowOffset;
             public double RowHeight;
@@ -365,7 +362,7 @@ namespace FGrid
             }
         }
 
-        abstract class GridRow
+        abstract partial class GridRow
         {
             public readonly FGridView   GridView     ;
             public Drawing              BackGround   ;
@@ -391,7 +388,7 @@ namespace FGrid
 
         }
 
-        sealed class ContentGridRow : GridRow
+        sealed partial class ContentGridRow : GridRow
         {
             public object Row;
 
@@ -445,7 +442,7 @@ namespace FGrid
 
         }
 
-        sealed class HeaderGridRow : GridRow
+        sealed partial class HeaderGridRow : GridRow
         {
             public HeaderGridRow(FGridView gridView) : base(gridView)
             {
@@ -749,7 +746,7 @@ namespace FGrid
 }
 namespace FGrid.Internal
 {
-    static class FGridExtensions
+    static partial class FGridExtensions
     {
         public static string ToText(this object obj, string format, CultureInfo cultureInfo)
         {
@@ -781,14 +778,7 @@ namespace FGrid.Internal
             }
 
             var stringValue = obj as string;
-            if (stringValue != null)
-            {
-                return stringValue.Length;
-            }
-            else
-            {
-                return obj.ToString().Length;
-            }
+            return stringValue != null ? stringValue.Length : obj.ToString().Length;
 
 
         }
