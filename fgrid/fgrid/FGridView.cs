@@ -50,8 +50,10 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -257,12 +259,15 @@ namespace FGrid
 
         protected override double OnMeasureRowQuick(object row)
         {
-            throw new NotImplementedException();
+            var val = row.GetMemberValue(ValuePath);
+            return val.MeasureQuick();
         }
 
         protected override double OnMeasureRowExact(object row)
         {
-            throw new NotImplementedException();
+            var val = row.GetMemberValue(ValuePath).ToText(FormatWith, GridView.Culture);
+            var ft  = GridView.GetFormattedText(val);
+            return  ft.Width;
         }
 
         protected override double OnMeasureHeaderQuick()
@@ -431,6 +436,54 @@ namespace FGrid
             }
         }
 
+        readonly static FontFamily      s_fallbackFont          = new FontFamily ("Calibri");
+
+        HeaderGridRow                   m_headerRow             ;
+        GridRows                        m_gridRows              ;
+        Vector                          m_gridOffset            ;
+        Typeface                        m_typeFace              ;
+        Func<string, FormattedText>     m_formattedTextCreator  ;
+
+        internal Typeface Typeface
+        {
+            get
+            {
+                if (m_typeFace == null)
+                {
+                    m_typeFace = new Typeface (FontFamily, FontStyle, FontWeight, FontStretch, s_fallbackFont);
+                }
+                return m_typeFace;
+            }
+        }
+
+        internal Func<string, FormattedText> FormattedTextCreator
+        {
+            get
+            {
+                if (m_formattedTextCreator == null)
+                {
+                    var culture             = Culture ?? Thread.CurrentThread.CurrentCulture;
+                    var flowDirection       = FlowDirection;
+                    var typeface            = Typeface;
+                    var fontSize            = FontSize;
+                    var foreground          = Foreground ?? Brushes.Black;
+                    var numberSubstitution  = NumberSubstitution;
+                    var textFormattingMode  = TextFormattingMode;
+                    m_formattedTextCreator  = str => new FormattedText(
+                        str ?? "",
+                        culture,
+                        flowDirection,
+                        typeface,
+                        fontSize,
+                        foreground,
+                        numberSubstitution,
+                        textFormattingMode
+                        );
+                }
+                return m_formattedTextCreator;
+            }
+        }
+
         protected override Size MeasureOverride(Size availableSize)
         {
             return availableSize;
@@ -442,9 +495,6 @@ namespace FGrid
             return base.ArrangeOverride(finalSize);
         }
 
-        HeaderGridRow   m_headerRow   ;
-        GridRows        m_gridRows     ;
-        Vector          m_gridOffset    ;
 
         void DisconnectObjects(IEnumerable<FGridView_Object> values)
         {
@@ -667,8 +717,16 @@ namespace FGrid
 
         }
 
+        internal FormattedText GetFormattedText(string val)
+        {
+            return FormattedTextCreator(val);
+        }
+
+
         internal void Invalidate()
         {
+            m_typeFace              = null;
+            m_formattedTextCreator  = null;
             InvalidateVisual();
         }
     }
@@ -677,6 +735,48 @@ namespace FGrid.Internal
 {
     static class FGridExtensions
     {
+        public static string ToText(this object obj, string format, CultureInfo cultureInfo)
+        {
+            if (obj == null)
+            {
+                return "";
+            }
+
+            var stringValue = obj as string;
+
+            if (stringValue != null)
+            {
+                return stringValue;
+            }
+
+            var formattable = obj as IFormattable;
+            if (formattable != null)
+            {
+                return formattable.ToString(format ?? "", cultureInfo ?? Thread.CurrentThread.CurrentCulture);
+            }
+
+            return obj.ToString();
+        }
+        public static int MeasureQuick(this object obj)
+        {
+            if (obj == null)
+            {
+                return 0;
+            }
+
+            var stringValue = obj as string;
+            if (stringValue != null)
+            {
+                return stringValue.Length;
+            }
+            else
+            {
+                return obj.ToString().Length;
+            }
+
+
+        }
+
         public static double AreaOf(this Size size)
         {
             return size.Height * size.Width;

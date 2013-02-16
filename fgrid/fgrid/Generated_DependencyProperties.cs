@@ -149,46 +149,6 @@ namespace FGrid
     partial class FGridView_FilterRule_Simple
     {
         #region Uninteresting generated code
-        public static readonly DependencyProperty CultureProperty = DependencyProperty.Register (
-            "Culture",
-            typeof (CultureInfo),
-            typeof (FGridView_FilterRule_Simple),
-            new FrameworkPropertyMetadata (
-                default (CultureInfo),
-                FrameworkPropertyMetadataOptions.None,
-                Changed_Culture,
-                Coerce_Culture          
-            ));
-
-        static void Changed_Culture (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
-        {
-            var instance = dependencyObject as FGridView_FilterRule_Simple;
-            if (instance != null)
-            {
-                var oldValue = (CultureInfo)eventArgs.OldValue;
-                var newValue = (CultureInfo)eventArgs.NewValue;
-
-                instance.Changed_Culture (oldValue, newValue);
-            }
-        }
-
-
-        static object Coerce_Culture (DependencyObject dependencyObject, object basevalue)
-        {
-            var instance = dependencyObject as FGridView_FilterRule_Simple;
-            if (instance == null)
-            {
-                return basevalue;
-            }
-            var oldValue = (CultureInfo)basevalue;
-            var newValue = oldValue;
-
-            instance.Coerce_Culture (oldValue, ref newValue);
-
-
-            return newValue;
-        }
-
         public static readonly DependencyProperty OperatorProperty = DependencyProperty.Register (
             "Operator",
             typeof (FilterOperator),
@@ -284,7 +244,6 @@ namespace FGrid
         // --------------------------------------------------------------------
         void CoerceAllProperties ()
         {
-            CoerceValue (CultureProperty);
             CoerceValue (OperatorProperty);
             CoerceValue (ComparandProperty);
         }
@@ -293,28 +252,6 @@ namespace FGrid
         // --------------------------------------------------------------------
         // Properties
         // --------------------------------------------------------------------
-
-           
-        // --------------------------------------------------------------------
-        public CultureInfo Culture
-        {
-            get
-            {
-                return (CultureInfo)GetValue (CultureProperty);
-            }
-            set
-            {
-                if (Culture != value)
-                {
-                    SetValue (CultureProperty, value);
-                }
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Changed_Culture (CultureInfo oldValue, CultureInfo newValue);
-        partial void Coerce_Culture (CultureInfo value, ref CultureInfo coercedValue);
-        // --------------------------------------------------------------------
-
 
            
         // --------------------------------------------------------------------
@@ -1284,6 +1221,46 @@ namespace FGrid
     partial class FGridView_Column_Text
     {
         #region Uninteresting generated code
+        public static readonly DependencyProperty FormatWithProperty = DependencyProperty.Register (
+            "FormatWith",
+            typeof (string),
+            typeof (FGridView_Column_Text),
+            new FrameworkPropertyMetadata (
+                default (string),
+                FrameworkPropertyMetadataOptions.None,
+                Changed_FormatWith,
+                Coerce_FormatWith          
+            ));
+
+        static void Changed_FormatWith (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView_Column_Text;
+            if (instance != null)
+            {
+                var oldValue = (string)eventArgs.OldValue;
+                var newValue = (string)eventArgs.NewValue;
+
+                instance.Changed_FormatWith (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_FormatWith (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView_Column_Text;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (string)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_FormatWith (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
         public static readonly DependencyProperty ValuePathProperty = DependencyProperty.Register (
             "ValuePath",
             typeof (string),
@@ -1339,6 +1316,7 @@ namespace FGrid
         // --------------------------------------------------------------------
         void CoerceAllProperties ()
         {
+            CoerceValue (FormatWithProperty);
             CoerceValue (ValuePathProperty);
         }
 
@@ -1346,6 +1324,28 @@ namespace FGrid
         // --------------------------------------------------------------------
         // Properties
         // --------------------------------------------------------------------
+
+           
+        // --------------------------------------------------------------------
+        public string FormatWith
+        {
+            get
+            {
+                return (string)GetValue (FormatWithProperty);
+            }
+            set
+            {
+                if (FormatWith != value)
+                {
+                    SetValue (FormatWithProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_FormatWith (string oldValue, string newValue);
+        partial void Coerce_FormatWith (string value, ref string coercedValue);
+        // --------------------------------------------------------------------
+
 
            
         // --------------------------------------------------------------------
@@ -1378,6 +1378,46 @@ namespace FGrid
     partial class FGridView
     {
         #region Uninteresting generated code
+        public static readonly DependencyProperty CultureProperty = DependencyProperty.Register (
+            "Culture",
+            typeof (CultureInfo),
+            typeof (FGridView),
+            new FrameworkPropertyMetadata (
+                default (CultureInfo),
+                FrameworkPropertyMetadataOptions.None,
+                Changed_Culture,
+                Coerce_Culture          
+            ));
+
+        static void Changed_Culture (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance != null)
+            {
+                var oldValue = (CultureInfo)eventArgs.OldValue;
+                var newValue = (CultureInfo)eventArgs.NewValue;
+
+                instance.Changed_Culture (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_Culture (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (CultureInfo)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_Culture (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
         public static readonly DependencyProperty BackgroundProperty = Panel.BackgroundProperty.AddOwner (
             typeof (FGridView),
             new FrameworkPropertyMetadata (
@@ -1639,6 +1679,86 @@ namespace FGrid
             var newValue = oldValue;
 
             instance.Coerce_FontSize (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
+        public static readonly DependencyProperty NumberSubstitutionProperty = DependencyProperty.Register (
+            "NumberSubstitution",
+            typeof (NumberSubstitution),
+            typeof (FGridView),
+            new FrameworkPropertyMetadata (
+                default (NumberSubstitution),
+                FrameworkPropertyMetadataOptions.None,
+                Changed_NumberSubstitution,
+                Coerce_NumberSubstitution          
+            ));
+
+        static void Changed_NumberSubstitution (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance != null)
+            {
+                var oldValue = (NumberSubstitution)eventArgs.OldValue;
+                var newValue = (NumberSubstitution)eventArgs.NewValue;
+
+                instance.Changed_NumberSubstitution (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_NumberSubstitution (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (NumberSubstitution)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_NumberSubstitution (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
+        public static readonly DependencyProperty TextFormattingModeProperty = DependencyProperty.Register (
+            "TextFormattingMode",
+            typeof (TextFormattingMode),
+            typeof (FGridView),
+            new FrameworkPropertyMetadata (
+                TextFormattingMode.Display,
+                FrameworkPropertyMetadataOptions.None,
+                Changed_TextFormattingMode,
+                Coerce_TextFormattingMode          
+            ));
+
+        static void Changed_TextFormattingMode (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance != null)
+            {
+                var oldValue = (TextFormattingMode)eventArgs.OldValue;
+                var newValue = (TextFormattingMode)eventArgs.NewValue;
+
+                instance.Changed_TextFormattingMode (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_TextFormattingMode (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (TextFormattingMode)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_TextFormattingMode (oldValue, ref newValue);
 
 
             return newValue;
@@ -2094,6 +2214,7 @@ namespace FGrid
         // --------------------------------------------------------------------
         void CoerceAllProperties ()
         {
+            CoerceValue (CultureProperty);
             CoerceValue (BackgroundProperty);
             CoerceValue (ForegroundProperty);
             CoerceValue (FontFamilyProperty);
@@ -2101,6 +2222,8 @@ namespace FGrid
             CoerceValue (FontWeightProperty);
             CoerceValue (FontStretchProperty);
             CoerceValue (FontSizeProperty);
+            CoerceValue (NumberSubstitutionProperty);
+            CoerceValue (TextFormattingModeProperty);
             CoerceValue (ShowHeaderRow_TopProperty);
             CoerceValue (ShowHeaderRow_BottomProperty);
             CoerceValue (ShowSearchRow_TopProperty);
@@ -2116,6 +2239,28 @@ namespace FGrid
         // --------------------------------------------------------------------
         // Properties
         // --------------------------------------------------------------------
+
+           
+        // --------------------------------------------------------------------
+        public CultureInfo Culture
+        {
+            get
+            {
+                return (CultureInfo)GetValue (CultureProperty);
+            }
+            set
+            {
+                if (Culture != value)
+                {
+                    SetValue (CultureProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Culture (CultureInfo oldValue, CultureInfo newValue);
+        partial void Coerce_Culture (CultureInfo value, ref CultureInfo coercedValue);
+        // --------------------------------------------------------------------
+
 
            
         // --------------------------------------------------------------------
@@ -2268,6 +2413,50 @@ namespace FGrid
         // --------------------------------------------------------------------
         partial void Changed_FontSize (double oldValue, double newValue);
         partial void Coerce_FontSize (double value, ref double coercedValue);
+        // --------------------------------------------------------------------
+
+
+           
+        // --------------------------------------------------------------------
+        public NumberSubstitution NumberSubstitution
+        {
+            get
+            {
+                return (NumberSubstitution)GetValue (NumberSubstitutionProperty);
+            }
+            set
+            {
+                if (NumberSubstitution != value)
+                {
+                    SetValue (NumberSubstitutionProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_NumberSubstitution (NumberSubstitution oldValue, NumberSubstitution newValue);
+        partial void Coerce_NumberSubstitution (NumberSubstitution value, ref NumberSubstitution coercedValue);
+        // --------------------------------------------------------------------
+
+
+           
+        // --------------------------------------------------------------------
+        public TextFormattingMode TextFormattingMode
+        {
+            get
+            {
+                return (TextFormattingMode)GetValue (TextFormattingModeProperty);
+            }
+            set
+            {
+                if (TextFormattingMode != value)
+                {
+                    SetValue (TextFormattingModeProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_TextFormattingMode (TextFormattingMode oldValue, TextFormattingMode newValue);
+        partial void Coerce_TextFormattingMode (TextFormattingMode value, ref TextFormattingMode coercedValue);
         // --------------------------------------------------------------------
 
 

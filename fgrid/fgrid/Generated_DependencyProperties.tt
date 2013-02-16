@@ -33,7 +33,6 @@ using System.Windows.Documents;
         },
         new ClassDefinition ("FGridView_FilterRule_Simple")
         {
-            P ("CultureInfo"        , "Culture"                 ),
             P ("FilterOperator"     , "Operator"                ),
             P ("object"             , "Comparand"               ),
         },
@@ -66,10 +65,12 @@ using System.Windows.Documents;
         },
         new ClassDefinition ("FGridView_Column_Text")
         {
+            P ("string"             , "FormatWith"              ),
             P ("string"             , "ValuePath"               ),
         },
         new ClassDefinition ("FGridView")
         {
+            P ("CultureInfo"                    , "Culture"                 ),
             P ("Brush"                          , "Background"              , ownerType:"Panel"         ),
             P ("Brush"                          , "Foreground"              , ownerType:"TextElement"   ),
             P ("FontFamily"                     , "FontFamily"              , ownerType:"TextElement"   ),
@@ -77,6 +78,9 @@ using System.Windows.Documents;
             P ("FontWeight"                     , "FontWeight"              , ownerType:"TextElement"   ),
             P ("FontStretch"                    , "FontStretch"             , ownerType:"TextElement"   ),
             P ("double"                         , "FontSize"                , ownerType:"TextElement"   ),
+
+            P ("NumberSubstitution"             , "NumberSubstitution"                                  ),
+            P ("TextFormattingMode"             , "TextFormattingMode"      , defaultValue:"TextFormattingMode.Display" ),
 
             P ("bool"                           , "ShowHeaderRow_Top"       , defaultValue: "true"  ),
             P ("bool"                           , "ShowHeaderRow_Bottom"    ),
