@@ -234,22 +234,27 @@ namespace FGrid
     {
         protected override void OnRenderRowBackground(DrawingContext dc, Size size, object row)
         {
-            throw new NotImplementedException();
+            var val                     = row.GetMemberValue(ValuePath).ToText(FormatWith, GridView.Culture);
+            var formattedText           = GridView.GetFormattedText(val);
+            formattedText.MaxTextWidth  = size.Width;
+            formattedText.MaxTextHeight = size.Height;
+            dc.DrawText(formattedText, new Point());
         }
 
         protected override void OnRenderRowOverlay(DrawingContext dc, Size size, object row, bool hasFocus)
         {
-            throw new NotImplementedException();
         }
 
         protected override void OnRenderHeaderBackground(DrawingContext dc, Size size)
         {
-            throw new NotImplementedException();
+            var formattedText           = GridView.GetFormattedText(Header);
+            formattedText.MaxTextWidth  = size.Width;
+            formattedText.MaxTextHeight = size.Height;
+            dc.DrawText(formattedText, new Point());
         }
 
         protected override void OnRenderHeaderOverlay(DrawingContext dc, Size size)
         {
-            throw new NotImplementedException();
         }
 
         protected override FGridView_Object OnCreateEditControl(object row)
@@ -265,9 +270,9 @@ namespace FGrid
 
         protected override double OnMeasureRowExact(object row)
         {
-            var val = row.GetMemberValue(ValuePath).ToText(FormatWith, GridView.Culture);
-            var ft  = GridView.GetFormattedText(val);
-            return  ft.Width;
+            var val             = row.GetMemberValue(ValuePath).ToText(FormatWith, GridView.Culture);
+            var formattedText   = GridView.GetFormattedText(val);
+            return  formattedText.Width;
         }
 
         protected override double OnMeasureHeaderQuick()
@@ -277,12 +282,23 @@ namespace FGrid
 
         protected override double OnMeasureHeaderExact()
         {
-            throw new NotImplementedException();
+            var formattedText = GridView.GetFormattedText(Header);
+            return formattedText.Width;
         }
 
         protected override void OnApplySort(bool? sortDescending)
         {
-            throw new NotImplementedException();
+            GridView.SortRules.Clear();
+            if (sortDescending == null)
+            {
+                return;
+            }
+
+            GridView.SortRules.Add(new FGridView_SortRule_Simple
+                                       {
+                                           ValuePath        = ValuePath                 ,
+                                           SortDescending   = sortDescending ?? false 
+                                       });
         }
 
         protected override void OnPresentFilterPopup()
