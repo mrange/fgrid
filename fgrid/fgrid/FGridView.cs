@@ -200,7 +200,10 @@ namespace FGrid
         const double Default_MinWidth               = 24.0;
         const double Default_MaxWidth               = double.MaxValue;
 
-        static readonly GridLength Default_Width    = GridLength.Auto;
+        static GridLength Default_Width
+        {
+            get { return GridLength.Auto; }
+        }
 
         partial void Coerce_Header(string value, ref string coercedValue)
         {

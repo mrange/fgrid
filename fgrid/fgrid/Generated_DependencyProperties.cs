@@ -12,6 +12,8 @@
 
 using System.Collections.Generic;
 using System.Globalization;
+using System.Windows.Controls;
+using System.Windows.Documents;
 
 
 // ############################################################################
@@ -27,12 +29,16 @@ using System.Globalization;
 
                                    
 
+// ReSharper disable CompareOfFloatsByEqualityOperator
 // ReSharper disable InconsistentNaming
 // ReSharper disable InvocationIsSkipped
 // ReSharper disable PartialMethodWithSinglePart
 // ReSharper disable PartialTypeWithSinglePart
+// ReSharper disable PossibleUnintendedReferenceComparison
 // ReSharper disable RedundantAssignment
+// ReSharper disable RedundantCast
 // ReSharper disable RedundantUsingDirective
+// ReSharper disable UnusedMember.Local
 
 namespace FGrid
 {
@@ -1372,9 +1378,7 @@ namespace FGrid
     partial class FGridView
     {
         #region Uninteresting generated code
-        public static readonly DependencyProperty BackgroundProperty = DependencyProperty.Register (
-            "Background",
-            typeof (Brush),
+        public static readonly DependencyProperty BackgroundProperty = Panel.BackgroundProperty.AddOwner (
             typeof (FGridView),
             new FrameworkPropertyMetadata (
                 default (Brush),
@@ -1412,9 +1416,7 @@ namespace FGrid
             return newValue;
         }
 
-        public static readonly DependencyProperty ForegroundProperty = DependencyProperty.Register (
-            "Foreground",
-            typeof (Brush),
+        public static readonly DependencyProperty ForegroundProperty = TextElement.ForegroundProperty.AddOwner (
             typeof (FGridView),
             new FrameworkPropertyMetadata (
                 default (Brush),
@@ -1447,6 +1449,196 @@ namespace FGrid
             var newValue = oldValue;
 
             instance.Coerce_Foreground (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
+        public static readonly DependencyProperty FontFamilyProperty = TextElement.FontFamilyProperty.AddOwner (
+            typeof (FGridView),
+            new FrameworkPropertyMetadata (
+                default (FontFamily),
+                FrameworkPropertyMetadataOptions.None,
+                Changed_FontFamily,
+                Coerce_FontFamily          
+            ));
+
+        static void Changed_FontFamily (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance != null)
+            {
+                var oldValue = (FontFamily)eventArgs.OldValue;
+                var newValue = (FontFamily)eventArgs.NewValue;
+
+                instance.Changed_FontFamily (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_FontFamily (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (FontFamily)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_FontFamily (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
+        public static readonly DependencyProperty FontStyleProperty = TextElement.FontStyleProperty.AddOwner (
+            typeof (FGridView),
+            new FrameworkPropertyMetadata (
+                default (FontStyle),
+                FrameworkPropertyMetadataOptions.None,
+                Changed_FontStyle,
+                Coerce_FontStyle          
+            ));
+
+        static void Changed_FontStyle (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance != null)
+            {
+                var oldValue = (FontStyle)eventArgs.OldValue;
+                var newValue = (FontStyle)eventArgs.NewValue;
+
+                instance.Changed_FontStyle (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_FontStyle (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (FontStyle)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_FontStyle (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
+        public static readonly DependencyProperty FontWeightProperty = TextElement.FontWeightProperty.AddOwner (
+            typeof (FGridView),
+            new FrameworkPropertyMetadata (
+                default (FontWeight),
+                FrameworkPropertyMetadataOptions.None,
+                Changed_FontWeight,
+                Coerce_FontWeight          
+            ));
+
+        static void Changed_FontWeight (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance != null)
+            {
+                var oldValue = (FontWeight)eventArgs.OldValue;
+                var newValue = (FontWeight)eventArgs.NewValue;
+
+                instance.Changed_FontWeight (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_FontWeight (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (FontWeight)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_FontWeight (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
+        public static readonly DependencyProperty FontStretchProperty = TextElement.FontStretchProperty.AddOwner (
+            typeof (FGridView),
+            new FrameworkPropertyMetadata (
+                default (FontStretch),
+                FrameworkPropertyMetadataOptions.None,
+                Changed_FontStretch,
+                Coerce_FontStretch          
+            ));
+
+        static void Changed_FontStretch (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance != null)
+            {
+                var oldValue = (FontStretch)eventArgs.OldValue;
+                var newValue = (FontStretch)eventArgs.NewValue;
+
+                instance.Changed_FontStretch (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_FontStretch (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (FontStretch)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_FontStretch (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
+        public static readonly DependencyProperty FontSizeProperty = TextElement.FontSizeProperty.AddOwner (
+            typeof (FGridView),
+            new FrameworkPropertyMetadata (
+                default (double),
+                FrameworkPropertyMetadataOptions.None,
+                Changed_FontSize,
+                Coerce_FontSize          
+            ));
+
+        static void Changed_FontSize (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance != null)
+            {
+                var oldValue = (double)eventArgs.OldValue;
+                var newValue = (double)eventArgs.NewValue;
+
+                instance.Changed_FontSize (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_FontSize (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (double)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_FontSize (oldValue, ref newValue);
 
 
             return newValue;
@@ -1904,6 +2096,11 @@ namespace FGrid
         {
             CoerceValue (BackgroundProperty);
             CoerceValue (ForegroundProperty);
+            CoerceValue (FontFamilyProperty);
+            CoerceValue (FontStyleProperty);
+            CoerceValue (FontWeightProperty);
+            CoerceValue (FontStretchProperty);
+            CoerceValue (FontSizeProperty);
             CoerceValue (ShowHeaderRow_TopProperty);
             CoerceValue (ShowHeaderRow_BottomProperty);
             CoerceValue (ShowSearchRow_TopProperty);
@@ -1961,6 +2158,116 @@ namespace FGrid
         // --------------------------------------------------------------------
         partial void Changed_Foreground (Brush oldValue, Brush newValue);
         partial void Coerce_Foreground (Brush value, ref Brush coercedValue);
+        // --------------------------------------------------------------------
+
+
+           
+        // --------------------------------------------------------------------
+        public FontFamily FontFamily
+        {
+            get
+            {
+                return (FontFamily)GetValue (FontFamilyProperty);
+            }
+            set
+            {
+                if (FontFamily != value)
+                {
+                    SetValue (FontFamilyProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_FontFamily (FontFamily oldValue, FontFamily newValue);
+        partial void Coerce_FontFamily (FontFamily value, ref FontFamily coercedValue);
+        // --------------------------------------------------------------------
+
+
+           
+        // --------------------------------------------------------------------
+        public FontStyle FontStyle
+        {
+            get
+            {
+                return (FontStyle)GetValue (FontStyleProperty);
+            }
+            set
+            {
+                if (FontStyle != value)
+                {
+                    SetValue (FontStyleProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_FontStyle (FontStyle oldValue, FontStyle newValue);
+        partial void Coerce_FontStyle (FontStyle value, ref FontStyle coercedValue);
+        // --------------------------------------------------------------------
+
+
+           
+        // --------------------------------------------------------------------
+        public FontWeight FontWeight
+        {
+            get
+            {
+                return (FontWeight)GetValue (FontWeightProperty);
+            }
+            set
+            {
+                if (FontWeight != value)
+                {
+                    SetValue (FontWeightProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_FontWeight (FontWeight oldValue, FontWeight newValue);
+        partial void Coerce_FontWeight (FontWeight value, ref FontWeight coercedValue);
+        // --------------------------------------------------------------------
+
+
+           
+        // --------------------------------------------------------------------
+        public FontStretch FontStretch
+        {
+            get
+            {
+                return (FontStretch)GetValue (FontStretchProperty);
+            }
+            set
+            {
+                if (FontStretch != value)
+                {
+                    SetValue (FontStretchProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_FontStretch (FontStretch oldValue, FontStretch newValue);
+        partial void Coerce_FontStretch (FontStretch value, ref FontStretch coercedValue);
+        // --------------------------------------------------------------------
+
+
+           
+        // --------------------------------------------------------------------
+        public double FontSize
+        {
+            get
+            {
+                return (double)GetValue (FontSizeProperty);
+            }
+            set
+            {
+                if (FontSize != value)
+                {
+                    SetValue (FontSizeProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_FontSize (double oldValue, double newValue);
+        partial void Coerce_FontSize (double value, ref double coercedValue);
         // --------------------------------------------------------------------
 
 

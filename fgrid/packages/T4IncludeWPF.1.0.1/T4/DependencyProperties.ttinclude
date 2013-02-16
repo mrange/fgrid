@@ -13,12 +13,16 @@
     // ----------------------------------------------------------------------------------------------
 #>
 
+// ReSharper disable CompareOfFloatsByEqualityOperator
 // ReSharper disable InconsistentNaming
 // ReSharper disable InvocationIsSkipped
 // ReSharper disable PartialMethodWithSinglePart
 // ReSharper disable PartialTypeWithSinglePart
+// ReSharper disable PossibleUnintendedReferenceComparison
 // ReSharper disable RedundantAssignment
+// ReSharper disable RedundantCast
 // ReSharper disable RedundantUsingDirective
+// ReSharper disable UnusedMember.Local
 
 namespace <#=Namespace#>
 {
