@@ -48,10 +48,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using FGrid.Internal;
 using FGrid.Source.Extensions;
@@ -341,8 +343,14 @@ namespace FGrid
 
         abstract class GridRow
         {
-            public Drawing         BackGround   ;
-            public Drawing         Overlay      ;
+            public readonly FGridView   GridView     ;
+            public Drawing              BackGround   ;
+            public Drawing              Overlay      ;
+
+            protected GridRow(FGridView gridView)
+            {
+                GridView = gridView;
+            }
 
             public void Render (DrawingContext drawingContext)
             {
@@ -355,14 +363,69 @@ namespace FGrid
                     drawingContext.DrawDrawing(Overlay);
                 }
             }
+
+
         }
 
         sealed class ContentGridRow : GridRow
         {
+            public object Row;
+
+            public ContentGridRow(FGridView gridView) : base(gridView)
+            {
+            }
+
+            public void Detach()
+            {
+                var row         = Row;
+                Row             = null;
+
+                InvalidateRow();
+
+                if (row != null)
+                {
+                    var notifyPropertyChanged = row as INotifyPropertyChanged;
+                    if (notifyPropertyChanged != null)
+                    {
+                        notifyPropertyChanged.PropertyChanged -= Row_PropertyChanged;
+                    }
+                }
+
+            }
+
+            public void Attach(object row)
+            {
+                Detach();
+                if (row != null)
+                {
+                    var notifyPropertyChanged = row as INotifyPropertyChanged;
+                    if (notifyPropertyChanged != null)
+                    {
+                        notifyPropertyChanged.PropertyChanged += Row_PropertyChanged;
+                    }
+
+                }
+            }
+
+            void Row_PropertyChanged(object sender, PropertyChangedEventArgs e)
+            {
+                InvalidateRow();
+                GridView.Invalidate();
+            }
+
+            void InvalidateRow()
+            {
+                BackGround  = null;
+                Overlay     = null;
+            }
+
         }
 
         sealed class HeaderGridRow : GridRow
         {
+            public HeaderGridRow(FGridView gridView) : base(gridView)
+            {
+            }
         }
 
         protected override Size MeasureOverride(Size availableSize)
@@ -601,7 +664,7 @@ namespace FGrid
 
         }
 
-        public void Invalidate()
+        internal void Invalidate()
         {
             InvalidateVisual();
         }
@@ -644,7 +707,7 @@ namespace FGrid.Internal
             if (memberName.IsNullOrEmpty())
             {
                 return defaultValue;
-            }
+            }            
 
 #if FGRID__DYNAMIC_IS_SUPPORTED
             CallSite<Func<CallSite, object, object>> callSite;

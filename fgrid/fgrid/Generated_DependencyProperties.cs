@@ -25,7 +25,7 @@ using System.Globalization;
 
 
 
-
+                                   
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable InvocationIsSkipped
@@ -129,8 +129,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_ValuePath (string value, ref string coercedValue);
         partial void Changed_ValuePath (string oldValue, string newValue);
+        partial void Coerce_ValuePath (string value, ref string coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -305,8 +305,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_Culture (CultureInfo value, ref CultureInfo coercedValue);
         partial void Changed_Culture (CultureInfo oldValue, CultureInfo newValue);
+        partial void Coerce_Culture (CultureInfo value, ref CultureInfo coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -327,8 +327,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_Operator (FilterOperator value, ref FilterOperator coercedValue);
         partial void Changed_Operator (FilterOperator oldValue, FilterOperator newValue);
+        partial void Coerce_Operator (FilterOperator value, ref FilterOperator coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -349,8 +349,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_Comparand (object value, ref object coercedValue);
         partial void Changed_Comparand (object oldValue, object newValue);
+        partial void Coerce_Comparand (object value, ref object coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -443,8 +443,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_ValuePath (string value, ref string coercedValue);
         partial void Changed_ValuePath (string oldValue, string newValue);
+        partial void Coerce_ValuePath (string value, ref string coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -578,8 +578,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_Culture (CultureInfo value, ref CultureInfo coercedValue);
         partial void Changed_Culture (CultureInfo oldValue, CultureInfo newValue);
+        partial void Coerce_Culture (CultureInfo value, ref CultureInfo coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -600,8 +600,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_SortDescending (bool value, ref bool coercedValue);
         partial void Changed_SortDescending (bool oldValue, bool newValue);
+        partial void Coerce_SortDescending (bool value, ref bool coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -778,8 +778,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_ContentHeight (double value, ref double coercedValue);
         partial void Changed_ContentHeight (double oldValue, double newValue);
+        partial void Coerce_ContentHeight (double value, ref double coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -800,8 +800,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_AdditionalHeight (double value, ref double coercedValue);
         partial void Changed_AdditionalHeight (double oldValue, double newValue);
+        partial void Coerce_AdditionalHeight (double value, ref double coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -822,8 +822,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_Height (double value, ref double coercedValue);
         partial void Changed_Height (double oldValue, double newValue);
+        partial void Coerce_Height (double value, ref double coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -1154,8 +1154,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_Header (string value, ref string coercedValue);
         partial void Changed_Header (string oldValue, string newValue);
+        partial void Coerce_Header (string value, ref string coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -1176,8 +1176,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_ToolTipPath (string value, ref string coercedValue);
         partial void Changed_ToolTipPath (string oldValue, string newValue);
+        partial void Coerce_ToolTipPath (string value, ref string coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -1198,8 +1198,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_ActualWidth (double value, ref double coercedValue);
         partial void Changed_ActualWidth (double oldValue, double newValue);
+        partial void Coerce_ActualWidth (double value, ref double coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -1220,8 +1220,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_MinWidth (double value, ref double coercedValue);
         partial void Changed_MinWidth (double oldValue, double newValue);
+        partial void Coerce_MinWidth (double value, ref double coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -1242,8 +1242,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_MaxWidth (double value, ref double coercedValue);
         partial void Changed_MaxWidth (double oldValue, double newValue);
+        partial void Coerce_MaxWidth (double value, ref double coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -1264,8 +1264,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_Width (GridLength value, ref GridLength coercedValue);
         partial void Changed_Width (GridLength oldValue, GridLength newValue);
+        partial void Coerce_Width (GridLength value, ref GridLength coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -1358,8 +1358,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_ValuePath (string value, ref string coercedValue);
         partial void Changed_ValuePath (string oldValue, string newValue);
+        partial void Coerce_ValuePath (string value, ref string coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -1937,8 +1937,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_Background (Brush value, ref Brush coercedValue);
         partial void Changed_Background (Brush oldValue, Brush newValue);
+        partial void Coerce_Background (Brush value, ref Brush coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -1959,8 +1959,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_Foreground (Brush value, ref Brush coercedValue);
         partial void Changed_Foreground (Brush oldValue, Brush newValue);
+        partial void Coerce_Foreground (Brush value, ref Brush coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -1981,8 +1981,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_ShowHeaderRow_Top (bool value, ref bool coercedValue);
         partial void Changed_ShowHeaderRow_Top (bool oldValue, bool newValue);
+        partial void Coerce_ShowHeaderRow_Top (bool value, ref bool coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -2003,8 +2003,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_ShowHeaderRow_Bottom (bool value, ref bool coercedValue);
         partial void Changed_ShowHeaderRow_Bottom (bool oldValue, bool newValue);
+        partial void Coerce_ShowHeaderRow_Bottom (bool value, ref bool coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -2025,8 +2025,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_ShowSearchRow_Top (bool value, ref bool coercedValue);
         partial void Changed_ShowSearchRow_Top (bool oldValue, bool newValue);
+        partial void Coerce_ShowSearchRow_Top (bool value, ref bool coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -2047,8 +2047,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_ShowSearchRow_Bottom (bool value, ref bool coercedValue);
         partial void Changed_ShowSearchRow_Bottom (bool oldValue, bool newValue);
+        partial void Coerce_ShowSearchRow_Bottom (bool value, ref bool coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -2069,8 +2069,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_Rows (IEnumerable<object> value, ref IEnumerable<object> coercedValue);
         partial void Changed_Rows (IEnumerable<object> oldValue, IEnumerable<object> newValue);
+        partial void Coerce_Rows (IEnumerable<object> value, ref IEnumerable<object> coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -2091,8 +2091,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_ColumnDefinitions (ObservableCollection<FGridView_Column> value, ref ObservableCollection<FGridView_Column> coercedValue);
         partial void Changed_ColumnDefinitions (ObservableCollection<FGridView_Column> oldValue, ObservableCollection<FGridView_Column> newValue);
+        partial void Coerce_ColumnDefinitions (ObservableCollection<FGridView_Column> value, ref ObservableCollection<FGridView_Column> coercedValue);
         partial void CollectionChanged_ColumnDefinitions (object sender, NotifyCollectionChangedAction action, int oldStartingIndex, IList oldItems, int newStartingIndex, IList newItems);
         // --------------------------------------------------------------------
 
@@ -2114,8 +2114,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_RowDefinition (FGridView_Row value, ref FGridView_Row coercedValue);
         partial void Changed_RowDefinition (FGridView_Row oldValue, FGridView_Row newValue);
+        partial void Coerce_RowDefinition (FGridView_Row value, ref FGridView_Row coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -2136,8 +2136,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_FilterRules (ObservableCollection<FGridView_FilterRule> value, ref ObservableCollection<FGridView_FilterRule> coercedValue);
         partial void Changed_FilterRules (ObservableCollection<FGridView_FilterRule> oldValue, ObservableCollection<FGridView_FilterRule> newValue);
+        partial void Coerce_FilterRules (ObservableCollection<FGridView_FilterRule> value, ref ObservableCollection<FGridView_FilterRule> coercedValue);
         partial void CollectionChanged_FilterRules (object sender, NotifyCollectionChangedAction action, int oldStartingIndex, IList oldItems, int newStartingIndex, IList newItems);
         // --------------------------------------------------------------------
 
@@ -2159,8 +2159,8 @@ namespace FGrid
             }
         }
         // --------------------------------------------------------------------
-        partial void Coerce_SortRules (ObservableCollection<FGridView_SortRule> value, ref ObservableCollection<FGridView_SortRule> coercedValue);
         partial void Changed_SortRules (ObservableCollection<FGridView_SortRule> oldValue, ObservableCollection<FGridView_SortRule> newValue);
+        partial void Coerce_SortRules (ObservableCollection<FGridView_SortRule> value, ref ObservableCollection<FGridView_SortRule> coercedValue);
         partial void CollectionChanged_SortRules (object sender, NotifyCollectionChangedAction action, int oldStartingIndex, IList oldItems, int newStartingIndex, IList newItems);
         // --------------------------------------------------------------------
 
