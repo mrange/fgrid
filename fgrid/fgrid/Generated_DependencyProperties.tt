@@ -21,6 +21,10 @@ using System.Windows.Documents;
     // The namespace the generated code is placed in
     Namespace   = "FGrid"         ;   
 
+    Default_GenerateChangedEvent            = true  ;              
+    Default_GenerateCoerceEvent             = true  ;
+    Default_GenerateCollectionChangedEvent  = true  ;              
+
     Model = new []
     {
         new ClassDefinition ("FGridView_FilterRule")
