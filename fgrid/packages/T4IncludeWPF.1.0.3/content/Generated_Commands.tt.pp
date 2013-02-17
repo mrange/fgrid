@@ -7,11 +7,13 @@
         // The name of a class
         new ClassDefinition ("T4IncludeControl")
         {
-            // The name of the event
-            E ("Activate")      , 
-            E ("Deactivate")    , 
+            // The name of the command
+            C ("CreateUser")    , 
         },
     };
 
 #>
-<#@ include file="$(SolutionDir)\packages\T4IncludeWPF.1.0.2\T4\RoutedEvents.ttinclude" #>
+
+<#@ include file="$(SolutionDir)\packages\T4IncludeWPF.1.0.3\T4\RoutedCommands.ttinclude" #>
+
+
