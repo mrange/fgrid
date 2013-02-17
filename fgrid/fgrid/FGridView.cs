@@ -555,7 +555,8 @@ namespace FGrid
         static Exception Exception_ObjectsCanNotBeReusedBetweenGridViews()
         {
             return new InvalidOperationException(
-                "FGridView_Objects can't be reused between several FGridViews. If you wish to move them you have to detach and attach the objects");
+                "FGridView_Objects can't be reused between several FGridViews. If you wish to move them you have to detach and attach the objects"
+                );
         }
 
         bool TestConnectionToOtherGridView(FGridView_Object v)
@@ -565,8 +566,8 @@ namespace FGrid
 
         void UpdateObjects(IEnumerable<FGridView_Object> oldValue, IEnumerable<FGridView_Object> newValue)
         {
-            var oldObjects = oldValue as FGridView_Object[] ?? oldValue.ToArray();
-            var newObjects = newValue as FGridView_Object[] ?? newValue.ToArray();
+            var oldObjects = oldValue.CastToEnumerable<FGridView_Object>().ToArray();
+            var newObjects = newValue.CastToEnumerable<FGridView_Object>().ToArray();
             ValidateObjects(newObjects);
             DisconnectObjects(oldObjects);
             ConnectObjects(newObjects);
@@ -746,6 +747,11 @@ namespace FGrid
 }
 namespace FGrid.Internal
 {
+    static class Common<T>
+    {
+        public static T[] EmptyArray = new T[0];
+    }
+
     static partial class FGridExtensions
     {
         public static string ToText(this object obj, string format, CultureInfo cultureInfo)
@@ -778,9 +784,12 @@ namespace FGrid.Internal
             }
 
             var stringValue = obj as string;
-            return stringValue != null ? stringValue.Length : obj.ToString().Length;
+            if (stringValue != null)
+            {
+                return stringValue.Length;
+            }
 
-
+            return obj.ToString().Length;
         }
 
         public static double AreaOf(this Size size)
@@ -801,6 +810,28 @@ namespace FGrid.Internal
         public static Rect ToRect(this Size size)
         {
             return new Rect(size);
+        }
+
+        public static T CastTo<T>(this object value, T defaultValue)
+        {
+            return value is T ? (T) value : defaultValue;
+        }
+
+        public static IEnumerable<T> CastToEnumerable<T>(this object value)
+        {
+            var arr = value as IEnumerable<T>;
+            return arr ?? Common<T>.EmptyArray;
+        }
+
+        public static IEnumerable<T> DefaultTo<T>(this IEnumerable<T> values)
+        {
+            return values ?? Common<T>.EmptyArray;
+        }
+
+        public static T DefaultTo<T>(this T value, T defaultTo)
+            where T : class
+        {
+            return value ?? defaultTo;
         }
 
 #if FGRID__DYNAMIC_IS_SUPPORTED

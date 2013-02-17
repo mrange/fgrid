@@ -1,0 +1,35 @@
+﻿<Window 
+    x:Class="fgrid.app.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:fg="clr-namespace:FGrid;assembly=FGrid"
+    Title="FGrid Demo App" 
+    MinHeight="480" 
+    MinWidth="640"
+    >
+    <fg:FGridView x:Name="GridView">
+        <fg:FGridView.ColumnDefinitions>
+            <fg:FGridView_Column_Text
+                Header="No"
+                ValuePath="Id"
+                IsReadOnly="True"
+                />
+            <fg:FGridView_Column_Text
+                Header="First name"
+                ValuePath="FirstName"
+                />
+            <fg:FGridView_Column_Text
+                Header="Last name"
+                ValuePath="LastName"
+                />
+            <fg:FGridView_Column_Text
+                Header="Age"
+                ValuePath="Age"
+                />
+            <fg:FGridView_Column_Text
+                Header="Created"
+                ValuePath="CreationDate"
+                />
+        </fg:FGridView.ColumnDefinitions>
+    </fg:FGridView>
+</Window>

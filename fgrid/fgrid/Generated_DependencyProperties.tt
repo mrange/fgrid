@@ -62,6 +62,7 @@ using System.Windows.Documents;
             P ("double"             , "MinWidth"                , defaultValue:"Default_MinWidth"   ),
             P ("double"             , "MaxWidth"                , defaultValue:"Default_MaxWidth"   ),
             P ("GridLength"         , "Width"                   , defaultValue:"Default_Width"      ),
+            P ("bool"               , "IsReadOnly"              ),
         },
         new ClassDefinition ("FGridView_Column_Text")
         {

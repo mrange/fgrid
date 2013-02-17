@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fgrid", "fgrid\fgrid.csproj", "{FBB2948A-C216-4D5B-950D-BC4FA54A39E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fgrid.app", "fgrid.app\fgrid.app.csproj", "{5759049D-DDF1-4EB4-B232-EE52B25B2B25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{FBB2948A-C216-4D5B-950D-BC4FA54A39E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBB2948A-C216-4D5B-950D-BC4FA54A39E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBB2948A-C216-4D5B-950D-BC4FA54A39E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5759049D-DDF1-4EB4-B232-EE52B25B2B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5759049D-DDF1-4EB4-B232-EE52B25B2B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5759049D-DDF1-4EB4-B232-EE52B25B2B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5759049D-DDF1-4EB4-B232-EE52B25B2B25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

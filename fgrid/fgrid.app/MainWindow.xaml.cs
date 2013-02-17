@@ -10,7 +10,14 @@
 // You must not remove this notice, or any other, from this software.
 // ----------------------------------------------------------------------------------------------
 
-using System.Reflection;
-
-[assembly: AssemblyTitle("fgrid")]
-[assembly: AssemblyDescription("")]
+namespace fgrid.app
+{
+    public partial class MainWindow
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+            GridView.Rows = Customer.CreateTestData();
+        }
+    }
+}

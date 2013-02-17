@@ -1052,6 +1052,46 @@ namespace FGrid
             return newValue;
         }
 
+        public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register (
+            "IsReadOnly",
+            typeof (bool),
+            typeof (FGridView_Column),
+            new FrameworkPropertyMetadata (
+                default (bool),
+                FrameworkPropertyMetadataOptions.None,
+                Changed_IsReadOnly,
+                Coerce_IsReadOnly          
+            ));
+
+        static void Changed_IsReadOnly (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView_Column;
+            if (instance != null)
+            {
+                var oldValue = (bool)eventArgs.OldValue;
+                var newValue = (bool)eventArgs.NewValue;
+
+                instance.Changed_IsReadOnly (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_IsReadOnly (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView_Column;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (bool)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_IsReadOnly (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
         #endregion
 
         // --------------------------------------------------------------------
@@ -1073,6 +1113,7 @@ namespace FGrid
             CoerceValue (MinWidthProperty);
             CoerceValue (MaxWidthProperty);
             CoerceValue (WidthProperty);
+            CoerceValue (IsReadOnlyProperty);
         }
 
 
@@ -1209,6 +1250,28 @@ namespace FGrid
         // --------------------------------------------------------------------
         partial void Changed_Width (GridLength oldValue, GridLength newValue);
         partial void Coerce_Width (GridLength value, ref GridLength coercedValue);
+        // --------------------------------------------------------------------
+
+
+           
+        // --------------------------------------------------------------------
+        public bool IsReadOnly
+        {
+            get
+            {
+                return (bool)GetValue (IsReadOnlyProperty);
+            }
+            set
+            {
+                if (IsReadOnly != value)
+                {
+                    SetValue (IsReadOnlyProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_IsReadOnly (bool oldValue, bool newValue);
+        partial void Coerce_IsReadOnly (bool value, ref bool coercedValue);
         // --------------------------------------------------------------------
 
 
@@ -1421,8 +1484,6 @@ namespace FGrid
         public static readonly DependencyProperty BackgroundProperty = Panel.BackgroundProperty.AddOwner (
             typeof (FGridView),
             new FrameworkPropertyMetadata (
-                default (Brush),
-                FrameworkPropertyMetadataOptions.None,
                 Changed_Background,
                 Coerce_Background          
             ));
@@ -1459,8 +1520,6 @@ namespace FGrid
         public static readonly DependencyProperty ForegroundProperty = TextElement.ForegroundProperty.AddOwner (
             typeof (FGridView),
             new FrameworkPropertyMetadata (
-                default (Brush),
-                FrameworkPropertyMetadataOptions.None,
                 Changed_Foreground,
                 Coerce_Foreground          
             ));
@@ -1497,8 +1556,6 @@ namespace FGrid
         public static readonly DependencyProperty FontFamilyProperty = TextElement.FontFamilyProperty.AddOwner (
             typeof (FGridView),
             new FrameworkPropertyMetadata (
-                default (FontFamily),
-                FrameworkPropertyMetadataOptions.None,
                 Changed_FontFamily,
                 Coerce_FontFamily          
             ));
@@ -1535,8 +1592,6 @@ namespace FGrid
         public static readonly DependencyProperty FontStyleProperty = TextElement.FontStyleProperty.AddOwner (
             typeof (FGridView),
             new FrameworkPropertyMetadata (
-                default (FontStyle),
-                FrameworkPropertyMetadataOptions.None,
                 Changed_FontStyle,
                 Coerce_FontStyle          
             ));
@@ -1573,8 +1628,6 @@ namespace FGrid
         public static readonly DependencyProperty FontWeightProperty = TextElement.FontWeightProperty.AddOwner (
             typeof (FGridView),
             new FrameworkPropertyMetadata (
-                default (FontWeight),
-                FrameworkPropertyMetadataOptions.None,
                 Changed_FontWeight,
                 Coerce_FontWeight          
             ));
@@ -1611,8 +1664,6 @@ namespace FGrid
         public static readonly DependencyProperty FontStretchProperty = TextElement.FontStretchProperty.AddOwner (
             typeof (FGridView),
             new FrameworkPropertyMetadata (
-                default (FontStretch),
-                FrameworkPropertyMetadataOptions.None,
                 Changed_FontStretch,
                 Coerce_FontStretch          
             ));
@@ -1649,8 +1700,6 @@ namespace FGrid
         public static readonly DependencyProperty FontSizeProperty = TextElement.FontSizeProperty.AddOwner (
             typeof (FGridView),
             new FrameworkPropertyMetadata (
-                default (double),
-                FrameworkPropertyMetadataOptions.None,
                 Changed_FontSize,
                 Coerce_FontSize          
             ));

@@ -39,6 +39,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Global_AssemblyInfo.cs">
+      <Link>Properties\Global_AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="FGridView.cs" />
     <Compile Include="Generated_Commands.cs">
       <AutoGen>True</AutoGen>
