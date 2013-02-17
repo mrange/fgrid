@@ -43,6 +43,7 @@
 // ############################################################################
 
 // ############################################################################
+// @@@ BEGIN_INCLUDE: https://raw.github.com/mrange/T4Include/master/Extensions/BasicExtensions.cs
 namespace FGrid
 {
     // ----------------------------------------------------------------------------------------------
@@ -278,10 +279,11 @@ namespace FGrid
         }
     }
 }
-
+// @@@ END_INCLUDE: https://raw.github.com/mrange/T4Include/master/Extensions/BasicExtensions.cs
 // ############################################################################
 
 // ############################################################################
+// @@@ BEGIN_INCLUDE: https://raw.github.com/mrange/T4Include/master/Common/Array.cs
 namespace FGrid
 {
     // ----------------------------------------------------------------------------------------------
@@ -304,10 +306,11 @@ namespace FGrid
         }
     }
 }
-
+// @@@ END_INCLUDE: https://raw.github.com/mrange/T4Include/master/Common/Array.cs
 // ############################################################################
 
 // ############################################################################
+// @@@ BEGIN_INCLUDE: https://raw.github.com/mrange/T4Include/master/Common/Config.cs
 namespace FGrid
 {
     // ----------------------------------------------------------------------------------------------
@@ -351,10 +354,11 @@ namespace FGrid
         }
     }
 }
-
+// @@@ END_INCLUDE: https://raw.github.com/mrange/T4Include/master/Common/Config.cs
 // ############################################################################
 
 // ############################################################################
+// @@@ BEGIN_INCLUDE: https://raw.github.com/mrange/T4Include/master/Common/Log.cs
 namespace FGrid
 {
     // ----------------------------------------------------------------------------------------------
@@ -415,10 +419,11 @@ namespace FGrid
         }
     }
 }
-
+// @@@ END_INCLUDE: https://raw.github.com/mrange/T4Include/master/Common/Log.cs
 // ############################################################################
 
 // ############################################################################
+// @@@ BEGIN_INCLUDE: https://raw.github.com/mrange/T4Include/master/Common/Generated_Log.cs
 namespace FGrid
 {
     // ############################################################################
@@ -522,7 +527,7 @@ namespace FGrid
     }
     
 }
-
+// @@@ END_INCLUDE: https://raw.github.com/mrange/T4Include/master/Common/Generated_Log.cs
 // ############################################################################
 
 // ############################################################################
@@ -531,9 +536,9 @@ namespace FGrid.Include
     static partial class MetaData
     {
         public const string RootPath        = @"https://raw.github.com/";
-        public const string IncludeDate     = @"2013-02-15T06:48:15";
+        public const string IncludeDate     = @"2013-02-17T09:53:43";
 
-        public const string Include_0       = @"mrange/T4Include/master/Extensions/BasicExtensions.cs";
+        public const string Include_0       = @"https://raw.github.com/mrange/T4Include/master/Extensions/BasicExtensions.cs";
         public const string Include_1       = @"https://raw.github.com/mrange/T4Include/master/Common/Array.cs";
         public const string Include_2       = @"https://raw.github.com/mrange/T4Include/master/Common/Config.cs";
         public const string Include_3       = @"https://raw.github.com/mrange/T4Include/master/Common/Log.cs";
