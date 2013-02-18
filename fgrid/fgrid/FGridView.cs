@@ -170,7 +170,6 @@ namespace FGrid
     {
         protected override void OnRenderRowBackground(DrawingContext dc, Size size, object row)
         {
-            dc.DrawRectangle(Brushes.White, null, size.ToRect());
         }
 
         protected override void OnRenderRowOverlay(DrawingContext dc, Size size, object row, bool isSelected)
@@ -504,8 +503,55 @@ namespace FGrid
 
         protected override Size ArrangeOverride(Size finalSize)
         {
+            var rowHeight   = RowDefinition.Height;
+            var startingRow = (int)Math.Floor(m_gridOffset.Y / rowHeight);
+            var localOffset = Math.Round(m_gridOffset.Y - startingRow * rowHeight, 0);
+            var rowCount    = (int) (finalSize.Height / rowHeight + (localOffset != 0 ? 1 : 0));
+
+            var visibleRows = Rows
+                .DefaultTo()
+                .Skip(startingRow)
+                .Take(rowCount)
+                .ToArray();
+
+            var columnDefinitions = ColumnDefinitions;
+
+            foreach (var row in visibleRows)
+            {
+                foreach (var column in columnDefinitions)
+                {
+                    if (column == null)
+                    {
+                        continue;
+                    }
+
+                    var width = ComputeColumnWidth (column, row);
+                    var gridLength = column.Width;
+                    if (gridLength.IsAbsolute)
+                    {
+                        
+                    }
+                }
+            }
+
             // TODO:
             return base.ArrangeOverride(finalSize);
+        }
+
+        double ComputeColumnWidth(FGridView_Column column, object row)
+        {
+            var gridLength = column.Width;
+            switch (gridLength.GridUnitType)
+            {
+                case GridUnitType.Auto:
+                    return 0.0; // TODO:
+                case GridUnitType.Pixel:
+                    return gridLength.Value;
+                case GridUnitType.Star:
+                    return 0.0;
+                default:
+                    return 0.0;
+            }
         }
 
 
@@ -669,7 +715,6 @@ namespace FGrid
                 newValue.GridView = this;
             }
         }
-        
 
         protected override void OnRender(DrawingContext drawingContext)
         {

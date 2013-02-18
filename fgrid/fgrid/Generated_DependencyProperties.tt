@@ -25,6 +25,9 @@ using System.Windows.Documents;
     Default_GenerateCoerceEvent             = true  ;
     Default_GenerateCollectionChangedEvent  = true  ;              
 
+    var affectsRender   = "FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender";
+    var affectsArrange  = "FrameworkPropertyMetadataOptions.AffectsArrange | " + affectsRender;
+
     Model = new []
     {
         new ClassDefinition ("FGridView_FilterRule")
@@ -71,7 +74,7 @@ using System.Windows.Documents;
         },
         new ClassDefinition ("FGridView")
         {
-            P ("CultureInfo"                    , "Culture"                 ),
+            P ("CultureInfo"                    , "Culture"                                             , metaDataOptions:affectsRender ),
             P ("Brush"                          , "Background"              , ownerType:"Panel"         ),
             P ("Brush"                          , "Foreground"              , ownerType:"TextElement"   ),
             P ("FontFamily"                     , "FontFamily"              , ownerType:"TextElement"   ),
@@ -80,15 +83,18 @@ using System.Windows.Documents;
             P ("FontStretch"                    , "FontStretch"             , ownerType:"TextElement"   ),
             P ("double"                         , "FontSize"                , ownerType:"TextElement"   ),
 
-            P ("NumberSubstitution"             , "NumberSubstitution"                                  ),
-            P ("TextFormattingMode"             , "TextFormattingMode"      , defaultValue:"TextFormattingMode.Display" ),
+            P ("NumberSubstitution"             , "NumberSubstitution"                                  , metaDataOptions:affectsArrange),
+            P ("TextFormattingMode"             , "TextFormattingMode"      , defaultValue:"TextFormattingMode.Display" , metaDataOptions:affectsArrange),
 
-            P ("bool"                           , "ShowHeaderRow_Top"       , defaultValue: "true"  ),
-            P ("bool"                           , "ShowHeaderRow_Bottom"    ),
-            P ("bool"                           , "ShowSearchRow_Top"       , defaultValue: "true"  ),
-            P ("bool"                           , "ShowSearchRow_Bottom"    ),
+            P ("bool"                           , "ShowHeaderRow_Top"       , defaultValue: "true"      , metaDataOptions:affectsRender ),
+            P ("bool"                           , "ShowHeaderRow_Bottom"                                , metaDataOptions:affectsRender ),
+            P ("bool"                           , "ShowSearchRow_Top"       , defaultValue: "true"      , metaDataOptions:affectsRender ),
+            P ("bool"                           , "ShowSearchRow_Bottom"                                , metaDataOptions:affectsRender ),
 
-            P ("IEnumerable<object>"            , "Rows"                    ),
+            P ("Brush"                          , "HorizontalStroke"                                    , metaDataOptions:affectsRender ),
+            P ("Brush"                          , "VerticalStroke"                                      , metaDataOptions:affectsRender ), 
+
+            P ("IEnumerable<object>"            , "Rows"                                                ),
 
             C ("FGridView_Column"               , "ColumnDefinitions"       ),
             P ("FGridView_Row"                  , "RowDefinition"           ),

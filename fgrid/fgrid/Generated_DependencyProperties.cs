@@ -1447,7 +1447,7 @@ namespace FGrid
             typeof (FGridView),
             new FrameworkPropertyMetadata (
                 default (CultureInfo),
-                FrameworkPropertyMetadataOptions.None,
+                FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender,
                 Changed_Culture,
                 Coerce_Culture          
             ));
@@ -1739,7 +1739,7 @@ namespace FGrid
             typeof (FGridView),
             new FrameworkPropertyMetadata (
                 default (NumberSubstitution),
-                FrameworkPropertyMetadataOptions.None,
+                FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender,
                 Changed_NumberSubstitution,
                 Coerce_NumberSubstitution          
             ));
@@ -1779,7 +1779,7 @@ namespace FGrid
             typeof (FGridView),
             new FrameworkPropertyMetadata (
                 TextFormattingMode.Display,
-                FrameworkPropertyMetadataOptions.None,
+                FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender,
                 Changed_TextFormattingMode,
                 Coerce_TextFormattingMode          
             ));
@@ -1819,7 +1819,7 @@ namespace FGrid
             typeof (FGridView),
             new FrameworkPropertyMetadata (
                 true,
-                FrameworkPropertyMetadataOptions.None,
+                FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender,
                 Changed_ShowHeaderRow_Top,
                 Coerce_ShowHeaderRow_Top          
             ));
@@ -1859,7 +1859,7 @@ namespace FGrid
             typeof (FGridView),
             new FrameworkPropertyMetadata (
                 default (bool),
-                FrameworkPropertyMetadataOptions.None,
+                FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender,
                 Changed_ShowHeaderRow_Bottom,
                 Coerce_ShowHeaderRow_Bottom          
             ));
@@ -1899,7 +1899,7 @@ namespace FGrid
             typeof (FGridView),
             new FrameworkPropertyMetadata (
                 true,
-                FrameworkPropertyMetadataOptions.None,
+                FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender,
                 Changed_ShowSearchRow_Top,
                 Coerce_ShowSearchRow_Top          
             ));
@@ -1939,7 +1939,7 @@ namespace FGrid
             typeof (FGridView),
             new FrameworkPropertyMetadata (
                 default (bool),
-                FrameworkPropertyMetadataOptions.None,
+                FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender,
                 Changed_ShowSearchRow_Bottom,
                 Coerce_ShowSearchRow_Bottom          
             ));
@@ -1968,6 +1968,86 @@ namespace FGrid
             var newValue = oldValue;
 
             instance.Coerce_ShowSearchRow_Bottom (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
+        public static readonly DependencyProperty HorizontalStrokeProperty = DependencyProperty.Register (
+            "HorizontalStroke",
+            typeof (Brush),
+            typeof (FGridView),
+            new FrameworkPropertyMetadata (
+                default (Brush),
+                FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender,
+                Changed_HorizontalStroke,
+                Coerce_HorizontalStroke          
+            ));
+
+        static void Changed_HorizontalStroke (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance != null)
+            {
+                var oldValue = (Brush)eventArgs.OldValue;
+                var newValue = (Brush)eventArgs.NewValue;
+
+                instance.Changed_HorizontalStroke (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_HorizontalStroke (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (Brush)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_HorizontalStroke (oldValue, ref newValue);
+
+
+            return newValue;
+        }
+
+        public static readonly DependencyProperty VerticalStrokeProperty = DependencyProperty.Register (
+            "VerticalStroke",
+            typeof (Brush),
+            typeof (FGridView),
+            new FrameworkPropertyMetadata (
+                default (Brush),
+                FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender,
+                Changed_VerticalStroke,
+                Coerce_VerticalStroke          
+            ));
+
+        static void Changed_VerticalStroke (DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance != null)
+            {
+                var oldValue = (Brush)eventArgs.OldValue;
+                var newValue = (Brush)eventArgs.NewValue;
+
+                instance.Changed_VerticalStroke (oldValue, newValue);
+            }
+        }
+
+
+        static object Coerce_VerticalStroke (DependencyObject dependencyObject, object basevalue)
+        {
+            var instance = dependencyObject as FGridView;
+            if (instance == null)
+            {
+                return basevalue;
+            }
+            var oldValue = (Brush)basevalue;
+            var newValue = oldValue;
+
+            instance.Coerce_VerticalStroke (oldValue, ref newValue);
 
 
             return newValue;
@@ -2277,6 +2357,8 @@ namespace FGrid
             CoerceValue (ShowHeaderRow_BottomProperty);
             CoerceValue (ShowSearchRow_TopProperty);
             CoerceValue (ShowSearchRow_BottomProperty);
+            CoerceValue (HorizontalStrokeProperty);
+            CoerceValue (VerticalStrokeProperty);
             CoerceValue (RowsProperty);
             CoerceValue (ColumnDefinitionsProperty);
             CoerceValue (RowDefinitionProperty);
@@ -2594,6 +2676,50 @@ namespace FGrid
         // --------------------------------------------------------------------
         partial void Changed_ShowSearchRow_Bottom (bool oldValue, bool newValue);
         partial void Coerce_ShowSearchRow_Bottom (bool value, ref bool coercedValue);
+        // --------------------------------------------------------------------
+
+
+           
+        // --------------------------------------------------------------------
+        public Brush HorizontalStroke
+        {
+            get
+            {
+                return (Brush)GetValue (HorizontalStrokeProperty);
+            }
+            set
+            {
+                if (HorizontalStroke != value)
+                {
+                    SetValue (HorizontalStrokeProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_HorizontalStroke (Brush oldValue, Brush newValue);
+        partial void Coerce_HorizontalStroke (Brush value, ref Brush coercedValue);
+        // --------------------------------------------------------------------
+
+
+           
+        // --------------------------------------------------------------------
+        public Brush VerticalStroke
+        {
+            get
+            {
+                return (Brush)GetValue (VerticalStrokeProperty);
+            }
+            set
+            {
+                if (VerticalStroke != value)
+                {
+                    SetValue (VerticalStrokeProperty, value);
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_VerticalStroke (Brush oldValue, Brush newValue);
+        partial void Coerce_VerticalStroke (Brush value, ref Brush coercedValue);
         // --------------------------------------------------------------------
 
 
